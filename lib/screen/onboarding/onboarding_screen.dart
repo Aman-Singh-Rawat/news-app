@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
-import 'package:news_app/screen/onboarding/account_type.dart';
 
 import '../../widgets/CustomButton.dart';
 
@@ -12,10 +11,6 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreen();
 }
 
-/*
-  "https://i.pinimg.com/474x/ad/96/93/ad969326e47ed9ac0d6449b4648b920e.jpg",
-  https://i.pinimg.com/474x/61/25/3a/61253af0ca402575bf970be7d20336be.jpg
-  */
 class _OnboardingScreen extends State<OnboardingScreen> {
   int _onboardingIndex = 0;
   PageController _pageController = PageController();
@@ -41,9 +36,9 @@ class _OnboardingScreen extends State<OnboardingScreen> {
   ];
 
   void _navigateToAccountType() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => AccountType()),
-    );
+    // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(builder: (context) => AccountType()),
+    // );
   }
 
   @override
