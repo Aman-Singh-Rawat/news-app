@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/screen/auth/signup_screen.dart';
 import 'package:news_app/screen/onboarding/onboarding_screen.dart';
 
 void main() async {
@@ -26,9 +27,9 @@ class NewsApp extends StatelessWidget {
         useMaterial3: true,
         primaryColor: primaryColor,
         textTheme: GoogleFonts.robotoTextTheme(),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.light(primary: primaryColor),
       ),
-      home: OnboardingScreen(),
+      home: SignupScreen(),
     );
   }
 }
