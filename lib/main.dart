@@ -28,7 +28,7 @@ class NewsApp extends StatelessWidget {
         ),
         useMaterial3: true,
         primaryColor: primaryColor,
-        textTheme: GoogleFonts.robotoTextTheme(),
+        textTheme: GoogleFonts.merriweatherTextTheme(),
         colorScheme: ColorScheme.light(primary: primaryColor),
       ),
       home: SignupScreen(),

@@ -18,14 +18,14 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  bool _isSignUp = false;
   bool _isRemember = false;
   bool _isTextEmpty = true;
 
   @override
   void initState() {
-    _emailController.addListener( _isOurTextFieldEmpty);
-    _passwordController.addListener( _isOurTextFieldEmpty);
+    _emailController.addListener(_isOurTextFieldEmpty);
+    _passwordController.addListener(_isOurTextFieldEmpty);
 
     super.initState();
   }
@@ -34,14 +34,17 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _isTextEmpty =
           _emailController.text.trim().toString().isEmpty ||
-              _passwordController.text.trim().toString().isEmpty;
+          _passwordController.text.trim().toString().isEmpty;
     });
   }
 
   void _onSignUpPressed() {
-    if (!_isTextEmpty) {
+    if (!_isTextEmpty) {}
+  }
 
-    }
+  void _onScreenChange() {
+    _isSignUp = !_isSignUp;
+    setState(() {});
   }
 
   void _onRememberMeChanged(bool? value) {
@@ -75,10 +78,10 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               Center(
                 child: Text(
-                  "Create an Account",
+                  _isSignUp ? "Create an Account" : "Let's Sign You In",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 24,
+                    fontSize: 26,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -116,11 +119,25 @@ class _SignupScreenState extends State<SignupScreen> {
                 ],
               ),
               customButton(
-                buttonName: "Sign Up",
+                buttonName: _isSignUp ? "Sign Up" : "Sign in",
                 color: _isTextEmpty ? lightRose : primaryColor,
                 onClick: _onSignUpPressed,
               ),
-              const SizedBox(height: 10),
+              _isSignUp
+                  ? SizedBox.shrink()
+                  : Center(
+                child: InkWell(
+                  child: Text(
+                    "Forgot the password?",
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: _isSignUp ? 10 : 25),
               Center(
                 child: Text(
                   "or continue with",
@@ -153,7 +170,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account?",
+                    _isSignUp
+                        ? "Already have an account?"
+                        : "Don't have an account?",
                     style: TextStyle(
                       color: Colors.grey,
                       fontWeight: FontWeight.w500,
@@ -161,9 +180,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   const SizedBox(width: 10),
                   InkWell(
-                    onTap: () {},
+                    onTap: _onScreenChange,
                     child: Text(
-                      "Sign in",
+                      _isSignUp ? "Sign in" : "Sign up",
                       style: TextStyle(
                         color: primaryColor,
                         fontWeight: FontWeight.w900,
