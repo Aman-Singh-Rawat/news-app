@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
 
@@ -13,7 +12,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreen extends State<OnboardingScreen> {
   int _onboardingIndex = 0;
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   final List<Map<String, String>> _onboardingList = [
     {
       "imageUrl":

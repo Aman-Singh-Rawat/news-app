@@ -18,20 +18,36 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   bool _isRemember = false;
   bool _isTextEmpty = true;
 
-  final GlobalKey _formKey = GlobalKey<FormFieldState>();
-
   @override
   void initState() {
-    _emailController.addListener(() {
-      setState(() {});
-    });
-    _passwordController.addListener(() {
-      setState(() {});
-    });
+    _emailController.addListener( _isOurTextFieldEmpty);
+    _passwordController.addListener( _isOurTextFieldEmpty);
+
     super.initState();
+  }
+
+  void _isOurTextFieldEmpty() {
+    setState(() {
+      _isTextEmpty =
+          _emailController.text.trim().toString().isEmpty ||
+              _passwordController.text.trim().toString().isEmpty;
+    });
+  }
+
+  void _onSignUpPressed() {
+    if (!_isTextEmpty) {
+
+    }
+  }
+
+  void _onRememberMeChanged(bool? value) {
+    setState(() {
+      _isRemember = value ?? false;
+    });
   }
 
   @override
@@ -43,141 +59,121 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _isTextEmpty =
-        _emailController.text.trim().toString().isEmpty ||
-        _passwordController.text.trim().toString().isEmpty;
-
     return Scaffold(
       body: SingleChildScrollView(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.minHeight),
-                child: IntrinsicHeight(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            "assets/images/img_app_logo.png",
-                            width: 230,
-                          ),
-                        ),
-                        Center(
-                          child: Text(
-                            "Create an Account",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        EditTextWithTitle(
-                          textTitle: "Email",
-                          textEditingController: _emailController,
-                          textInputType: TextInputType.emailAddress,
-                        ),
-                        const SizedBox(height: 20),
-                        EditTextWithTitle(
-                          textTitle: "Password",
-                          textEditingController: _passwordController,
-                          textInputType: TextInputType.visiblePassword,
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              value: _isRemember,
-                              onChanged: (value) {
-                                _isRemember = value ?? false;
-                                setState(() {});
-                              },
-                            ),
-                            Text(
-                              "Remember me",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ],
-                        ),
-                        customButton(
-                          buttonName: "Sign Up",
-                          color: _isTextEmpty ? lightRose : primaryColor,
-                          onClick: () {},
-                        ),
-                        Center(
-                          child: Text(
-                            "or continue with",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: SocialMediaButton(
-                                buttonName: "Facebook",
-                                buttonIcon: "assets/images/ic_facebook.svg",
-                              ),
-                            ),
-                            const SizedBox(width: 15),
-                            Expanded(
-                              child: SocialMediaButton(
-                                buttonName: "Google",
-                                buttonIcon: "assets/images/ic_google.svg",
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Positioned(
-                            bottom: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Already have an account?",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Text(
-                                    "Sign in",
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Center(
+                child: Image.asset(
+                  "assets/images/img_app_logo.png",
+                  width: 210,
+                ),
+              ),
+              Center(
+                child: Text(
+                  "Create an Account",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
               ),
-            );
-          },
+              const SizedBox(height: 30),
+              EditTextWithTitle(
+                textTitle: "Email",
+                textEditingController: _emailController,
+                textInputType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 20),
+              EditTextWithTitle(
+                textTitle: "Password",
+                textEditingController: _passwordController,
+                textInputType: TextInputType.visiblePassword,
+              ),
+              const SizedBox(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Checkbox(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    value: _isRemember,
+                    onChanged: _onRememberMeChanged,
+                  ),
+                  Text(
+                    "Remember me",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
+              ),
+              customButton(
+                buttonName: "Sign Up",
+                color: _isTextEmpty ? lightRose : primaryColor,
+                onClick: _onSignUpPressed,
+              ),
+              const SizedBox(height: 10),
+              Center(
+                child: Text(
+                  "or continue with",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  Expanded(
+                    child: SocialMediaButton(
+                      buttonName: "Facebook",
+                      buttonIcon: "assets/images/ic_facebook.svg",
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: SocialMediaButton(
+                      buttonName: "Google",
+                      buttonIcon: "assets/images/ic_google.svg",
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account?",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      "Sign in",
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

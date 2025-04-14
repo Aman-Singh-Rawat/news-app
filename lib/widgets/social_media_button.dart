@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -20,7 +19,7 @@ class SocialMediaButton extends StatelessWidget {
           const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         ),
         side: WidgetStatePropertyAll(
-          BorderSide(color: Colors.grey.shade300, width: 0.5),
+          BorderSide(color: Colors.grey.shade200, width: 0.5),
         ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
