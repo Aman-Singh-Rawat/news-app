@@ -44,6 +44,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void _onScreenChange() {
     _isSignUp = !_isSignUp;
+    _emailController.clear();
+    _passwordController.clear();
     setState(() {});
   }
 
