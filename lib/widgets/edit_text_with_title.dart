@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 
+
 class EditTextWithTitle extends StatefulWidget {
-  EditTextWithTitle({
+  const EditTextWithTitle({
     super.key,
     required this.textTitle,
     required this.textInputType,
     required this.textEditingController,
   });
 
-  String textTitle;
-  TextInputType textInputType;
-  TextEditingController textEditingController;
+  final String textTitle;
+  final TextInputType textInputType;
+  final TextEditingController textEditingController;
 
   @override
   State<EditTextWithTitle> createState() => _EditTextWithTitle();
