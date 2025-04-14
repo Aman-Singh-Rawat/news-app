@@ -18,7 +18,7 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isSignUp = false;
+  bool _isSignUp = true;
   bool _isRemember = false;
   bool _isTextEmpty = true;
 
