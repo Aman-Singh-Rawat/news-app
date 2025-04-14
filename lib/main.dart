@@ -24,6 +24,9 @@ class NewsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        checkboxTheme: CheckboxThemeData(
+          side: BorderSide(color: primaryColor, width: 2),
+        ),
         useMaterial3: true,
         primaryColor: primaryColor,
         textTheme: GoogleFonts.robotoTextTheme(),

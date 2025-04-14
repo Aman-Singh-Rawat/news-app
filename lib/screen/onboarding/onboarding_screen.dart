@@ -176,6 +176,7 @@ class _OnboardingScreen extends State<OnboardingScreen> {
                   ),
                 ),
                 customButton(
+                  buttonName: "Next",
                   color: primaryColor,
                   margin: 20,
                   onClick: () {
