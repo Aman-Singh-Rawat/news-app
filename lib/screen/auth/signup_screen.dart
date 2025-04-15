@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:news_app/main.dart';
 import 'package:news_app/utils/colors.dart';
 import 'package:news_app/widgets/CustomButton.dart';
@@ -20,7 +19,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isSignUp = true;
   bool _isRemember = false;
-  bool _isTextEmpty = true;
+  bool _isEmailEmpty = true;
+  bool _isPasswordEmpty = true;
 
   @override
   void initState() {
@@ -32,20 +32,22 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void _isOurTextFieldEmpty() {
     setState(() {
-      _isTextEmpty =
-          _emailController.text.trim().toString().isEmpty ||
-          _passwordController.text.trim().toString().isEmpty;
+      _isEmailEmpty = _emailController.text.trim().toString().isEmpty;
+      _isPasswordEmpty = _passwordController.text.trim().toString().isEmpty;
+
     });
   }
 
   void _onSignUpPressed() {
-    if (!_isTextEmpty) {}
+    if (_isEmailEmpty || _isPasswordEmpty) {}
   }
 
   void _onScreenChange() {
     _isSignUp = !_isSignUp;
+
     _emailController.clear();
     _passwordController.clear();
+    FocusScope.of(context).unfocus();
     setState(() {});
   }
 
@@ -90,15 +92,18 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               const SizedBox(height: 30),
               EditTextWithTitle(
-                textTitle: "Email",
-                textEditingController: _emailController,
-                textInputType: TextInputType.emailAddress,
+                title: "Email",
+                isPrimaryColor: !_isEmailEmpty,
+                controller: _emailController,
+                inputType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 20),
               EditTextWithTitle(
-                textTitle: "Password",
-                textEditingController: _passwordController,
-                textInputType: TextInputType.visiblePassword,
+                title: "Password",
+                obscureText: true,
+                isPrimaryColor: !_isPasswordEmpty,
+                controller: _passwordController,
+                inputType: TextInputType.visiblePassword,
               ),
               const SizedBox(height: 10),
               Row(
@@ -122,7 +127,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               customButton(
                 buttonName: _isSignUp ? "Sign Up" : "Sign in",
-                color: _isTextEmpty ? lightRose : primaryColor,
+                color: _isPasswordEmpty || _isEmailEmpty ? lightRose : primaryColor,
                 onClick: _onSignUpPressed,
               ),
               _isSignUp
