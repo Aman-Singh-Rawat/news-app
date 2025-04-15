@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/screen/auth/forgot_password_screen.dart';
 import 'package:news_app/screen/auth/signup_screen.dart';
 
 void main() async {
@@ -23,6 +24,13 @@ class NewsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         checkboxTheme: CheckboxThemeData(
           side: BorderSide(color: primaryColor, width: 2),
         ),
@@ -31,7 +39,7 @@ class NewsApp extends StatelessWidget {
         textTheme: GoogleFonts.merriweatherTextTheme(),
         colorScheme: ColorScheme.light(primary: primaryColor),
       ),
-      home: SignupScreen(),
+      home: ForgotPasswordScreen(),
     );
   }
 }
