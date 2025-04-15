@@ -34,7 +34,6 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _isEmailEmpty = _emailController.text.trim().toString().isEmpty;
       _isPasswordEmpty = _passwordController.text.trim().toString().isEmpty;
-
     });
   }
 
@@ -66,139 +65,149 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              Center(
-                child: Image.asset(
-                  "assets/images/img_app_logo.png",
-                  width: 210,
-                ),
-              ),
-              Center(
-                child: Text(
-                  _isSignUp ? "Create an Account" : "Let's Sign You In",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w900,
+    return PopScope(
+      canPop: _isSignUp, // block system back if needed
+      onPopInvokedWithResult: (didPop, result) {
+        _isSignUp = !_isSignUp;
+        setState(() {});
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Center(
+                  child: Image.asset(
+                    "assets/images/img_app_logo.png",
+                    width: 210,
                   ),
                 ),
-              ),
-              const SizedBox(height: 30),
-              EditTextWithTitle(
-                title: "Email",
-                isPrimaryColor: !_isEmailEmpty,
-                controller: _emailController,
-                inputType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 20),
-              EditTextWithTitle(
-                title: "Password",
-                obscureText: true,
-                isPrimaryColor: !_isPasswordEmpty,
-                controller: _passwordController,
-                inputType: TextInputType.visiblePassword,
-              ),
-              const SizedBox(height: 10),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    value: _isRemember,
-                    onChanged: _onRememberMeChanged,
-                  ),
-                  Text(
-                    "Remember me",
+                Center(
+                  child: Text(
+                    _isSignUp ? "Create an Account" : "Let's Sign You In",
                     style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ],
-              ),
-              customButton(
-                buttonName: _isSignUp ? "Sign Up" : "Sign in",
-                color: _isPasswordEmpty || _isEmailEmpty ? lightRose : primaryColor,
-                onClick: _onSignUpPressed,
-              ),
-              _isSignUp
-                  ? SizedBox.shrink()
-                  : Center(
-                child: InkWell(
-                  child: Text(
-                    "Forgot the password?",
-                    style: TextStyle(
-                      color: primaryColor,
+                      fontSize: 26,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
-              ),
-
-              SizedBox(height: _isSignUp ? 10 : 25),
-              Center(
-                child: Text(
-                  "or continue with",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
+                const SizedBox(height: 30),
+                EditTextWithTitle(
+                  title: "Email",
+                  isPrimaryColor: !_isEmailEmpty,
+                  controller: _emailController,
+                  inputType: TextInputType.emailAddress,
                 ),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                children: [
-                  Expanded(
-                    child: SocialMediaButton(
-                      buttonName: "Facebook",
-                      buttonIcon: "assets/images/ic_facebook.svg",
+                const SizedBox(height: 20),
+                EditTextWithTitle(
+                  title: "Password",
+                  obscureText: true,
+                  isPrimaryColor: !_isPasswordEmpty,
+                  controller: _passwordController,
+                  inputType: TextInputType.visiblePassword,
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      value: _isRemember,
+                      onChanged: _onRememberMeChanged,
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: SocialMediaButton(
-                      buttonName: "Google",
-                      buttonIcon: "assets/images/ic_google.svg",
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    _isSignUp
-                        ? "Already have an account?"
-                        : "Don't have an account?",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  InkWell(
-                    onTap: _onScreenChange,
-                    child: Text(
-                      _isSignUp ? "Sign in" : "Sign up",
+                    Text(
+                      "Remember me",
                       style: TextStyle(
-                        color: primaryColor,
+                        color: Colors.black,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
+                  ],
+                ),
+                customButton(
+                  buttonName: _isSignUp ? "Sign Up" : "Sign in",
+                  color:
+                      _isPasswordEmpty || _isEmailEmpty
+                          ? lightRose
+                          : primaryColor,
+                  onClick: _onSignUpPressed,
+                ),
+                _isSignUp
+                    ? SizedBox.shrink()
+                    : Center(
+                      child: InkWell(
+                        child: Text(
+                          "Forgot the password?",
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                SizedBox(height: _isSignUp ? 10 : 25),
+                Center(
+                  child: Text(
+                    "or continue with",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SocialMediaButton(
+                        buttonName: "Facebook",
+                        buttonIcon: "assets/images/ic_facebook.svg",
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: SocialMediaButton(
+                        buttonName: "Google",
+                        buttonIcon: "assets/images/ic_google.svg",
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      _isSignUp
+                          ? "Already have an account?"
+                          : "Don't have an account?",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    InkWell(
+                      onTap: _onScreenChange,
+                      child: Text(
+                        _isSignUp ? "Sign in" : "Sign up",
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
