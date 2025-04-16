@@ -5,7 +5,7 @@ import 'package:news_app/main.dart';
 import 'package:news_app/widgets/CustomButton.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
 
-import '../../utils/colors.dart';
+import '../../../utils/colors.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
