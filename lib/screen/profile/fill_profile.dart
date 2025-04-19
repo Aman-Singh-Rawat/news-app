@@ -25,11 +25,17 @@ class _FillProfileState extends State<FillProfile> {
               const SizedBox(height: 10),
               Center(
                 child: SizedBox(
-                  width: 150,
-                  height: 150,
+                  width: 120,
+                  height: 120,
                   child: Stack(
                     children: [
                       Image.asset("assets/images/img_profile_placeholder.png"),
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage: NetworkImage(
+                          "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+                        ),
+                      ),
                       Positioned(
                         right: 0,
                         bottom: 10,
