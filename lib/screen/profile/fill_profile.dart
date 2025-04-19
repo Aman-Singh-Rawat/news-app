@@ -12,6 +12,12 @@ class FillProfile extends StatefulWidget {
 }
 
 class _FillProfileState extends State<FillProfile> {
+  final userNameController = TextEditingController();
+  final fullNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +36,26 @@ class _FillProfileState extends State<FillProfile> {
                   child: Stack(
                     children: [
                       Image.asset("assets/images/img_profile_placeholder.png"),
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage(
-                          "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-                        ),
-                      ),
+                      // CircleAvatar(
+                      //   radius: 60,
+                      //   backgroundImage: NetworkImage(
+                      //     "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+                      //   ),
+                      // ),
                       Positioned(
                         right: 0,
                         bottom: 10,
-                        child: Container(
-                          padding: const EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            shape: BoxShape.circle,
+                        child: InkWell(
+                          onTap: () {},
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.edit, color: Colors.white),
                           ),
-                          child: Icon(Icons.edit, color: Colors.white),
                         ),
                       ),
                     ],
