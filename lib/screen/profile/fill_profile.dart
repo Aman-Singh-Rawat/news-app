@@ -29,17 +29,9 @@ class _FillProfileState extends State<FillProfile> {
                   height: 110,
                   child: Stack(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.person,
-                          size: 110,
-                          color: Colors.grey.shade400,
-                        ),
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage("assets/images/img_profile_placeholder.png"),
                       ),
                       Positioned(
                         right: 0,
