@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
 import 'package:news_app/utils/colors.dart';
@@ -66,7 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: _isSignUp, // block system back if needed
+      canPop: _isSignUp,
       onPopInvokedWithResult: (didPop, result) {
         _isSignUp = !_isSignUp;
         setState(() {});

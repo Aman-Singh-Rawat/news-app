@@ -18,7 +18,7 @@ class EditTextWithTitle extends StatefulWidget {
   final String title;
   final TextInputType inputType;
   final TextEditingController controller;
-  final bool isRequired; // Indicate if the field is required
+  final bool isRequired;
   final bool obscureText;
 
   @override
@@ -92,6 +92,7 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
         letterSpacing: 0.5,
         fontWeight: FontWeight.w600,
       ),
+      // TODO SEND ICON DYNAMICALLY
       decoration: InputDecoration(
         suffixIcon: widget.obscureText
             ? IconButton(

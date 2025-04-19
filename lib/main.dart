@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/screen/auth/forgot_password/forgot_pass_otp.dart';
-import 'package:news_app/screen/auth/forgot_password/forgot_password_screen.dart';
-import 'package:news_app/screen/auth/signup_screen.dart';
 import 'package:news_app/screen/profile/fill_profile.dart';
 
 void main() async {
