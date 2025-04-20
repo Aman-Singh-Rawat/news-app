@@ -12,11 +12,28 @@ class FillProfile extends StatefulWidget {
 }
 
 class _FillProfileState extends State<FillProfile> {
-  final userNameController = TextEditingController();
-  final fullNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneNumberController = TextEditingController();
+  final _userNameController = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
 
+  @override
+  void initState() {
+    _userNameController.addListener(() => setState(() {}));
+    _fullNameController.addListener(() => setState(() {}));
+    _emailController.addListener(() => setState(() {}));
+    _phoneNumberController.addListener(() => setState(() {}));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _userNameController.dispose();
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +48,25 @@ class _FillProfileState extends State<FillProfile> {
               const SizedBox(height: 10),
               Center(
                 child: SizedBox(
-                  width: 120,
-                  height: 120,
+                  width: 130,
+                  height: 130,
                   child: Stack(
                     children: [
-                      Image.asset("assets/images/img_profile_placeholder.png"),
-                      // CircleAvatar(
-                      //   radius: 60,
-                      //   backgroundImage: NetworkImage(
-                      //     "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-                      //   ),
-                      // ),
+                      //Image.asset("assets/images/img_profile_placeholder.png"),
+                      CircleAvatar(
+                        radius: 65,
+                        backgroundImage: NetworkImage(
+                          "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+                        ),
+                      ),
                       Positioned(
                         right: 0,
-                        bottom: 10,
+                        bottom: 5,
                         child: InkWell(
                           onTap: () {},
                           borderRadius: BorderRadius.circular(30),
                           child: Container(
-                            padding: const EdgeInsets.all(4),
+                            padding: const EdgeInsets.all(3),
                             decoration: BoxDecoration(
                               color: primaryColor,
                               shape: BoxShape.circle,
@@ -66,29 +83,30 @@ class _FillProfileState extends State<FillProfile> {
               EditTextWithTitle(
                 title: "Username",
                 inputType: TextInputType.name,
-                isPrimaryColor: false,
-                controller: TextEditingController(),
+                isPrimaryColor: _userNameController.text.toString().trim().isNotEmpty,
+                controller: _userNameController,
               ),
               const SizedBox(height: 20),
               EditTextWithTitle(
                 title: "Full Name",
                 inputType: TextInputType.name,
-                isPrimaryColor: false,
-                controller: TextEditingController(),
+                isPrimaryColor: _fullNameController.text.toString().trim().isNotEmpty,
+                controller: _fullNameController,
               ),
               const SizedBox(height: 20),
               EditTextWithTitle(
                 title: "Email",
                 inputType: TextInputType.name,
-                isPrimaryColor: false,
-                controller: TextEditingController(),
+                isPrimaryColor:
+                    _emailController.text.toString().trim().isNotEmpty,
+                controller: _emailController,
               ),
               const SizedBox(height: 20),
               EditTextWithTitle(
                 title: "Phone Number",
                 inputType: TextInputType.name,
-                isPrimaryColor: false,
-                controller: TextEditingController(),
+                isPrimaryColor: _phoneNumberController.text.toString().trim().isNotEmpty,
+                controller: _phoneNumberController,
               ),
               const SizedBox(height: 20),
               customButton(
