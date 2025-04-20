@@ -12,8 +12,10 @@ class EditTextWithTitle extends StatefulWidget {
     required this.controller,
     this.isRequired = true,
     this.obscureText = false,
+    this.suffixIcon,
   });
 
+  final IconData? suffixIcon;
   final bool isPrimaryColor;
   final String title;
   final TextInputType inputType;
@@ -38,6 +40,24 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
       borderRadius: BorderRadius.circular(30),
     );
     _isPasswordVisible = widget.obscureText;
+  }
+
+  Widget get _suffixIcon {
+    return widget.obscureText
+        ? IconButton(
+      onPressed: () {
+        setState(() {
+          _isPasswordVisible = !_isPasswordVisible;
+        });
+      },
+      icon: Icon(
+        _isPasswordVisible
+            ? CupertinoIcons.eye_fill
+            : CupertinoIcons.eye_slash_fill,
+        color: Colors.black54,
+      ),
+    )
+        : Icon(widget.suffixIcon, color: Colors.grey);
   }
 
   @override
@@ -88,27 +108,12 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
       obscureText: _isPasswordVisible,
       style: const TextStyle(
         color: Colors.black,
-        fontSize: 14,
+        fontSize: 13,
         letterSpacing: 0.5,
         fontWeight: FontWeight.w600,
       ),
-      // TODO SEND ICON DYNAMICALLY
       decoration: InputDecoration(
-        suffixIcon: widget.obscureText
-            ? IconButton(
-          onPressed: () {
-            setState(() {
-              _isPasswordVisible = !_isPasswordVisible;
-            });
-          },
-          icon: Icon(
-            _isPasswordVisible
-                ? CupertinoIcons.eye_fill
-                : CupertinoIcons.eye_slash_fill,
-            color: Colors.black54,
-          ),
-        )
-            : null,
+        suffixIcon: _suffixIcon,
         hintText: widget.title,
         hintStyle: TextStyle(
           color: Colors.grey.shade300,
@@ -116,10 +121,7 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
           letterSpacing: 0.5,
           fontWeight: FontWeight.w900,
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 0,
-          horizontal: 20,
-        ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
         focusedBorder: _outlineInputBorder.copyWith(
           borderSide: BorderSide(color: primaryColor, width: 2),
         ),
