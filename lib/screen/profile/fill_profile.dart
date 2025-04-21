@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,7 +29,7 @@ class _FillProfileState extends State<FillProfile> {
 
   bool _isAllTextFill = false;
 
-  late final List<Map<String, dynamic>> fillProfileEditTextMap;
+  late final List<Map<String, dynamic>> _fillProfileEditTextMap;
 
   // Camera Permission Request
   Future<void> requestCameraPermission() async {
@@ -37,7 +38,7 @@ class _FillProfileState extends State<FillProfile> {
       _selectImage(true);
     } else if (status == PermissionStatus.denied) {
       Fluttertoast.showToast(
-        msg: "Tum ghar jao",
+        msg: "Permission is Denied",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black87,
@@ -51,19 +52,30 @@ class _FillProfileState extends State<FillProfile> {
 
   // Gallery Permission
   Future<void> requestGalleryPermission() async {
-    final status = await Permission.photos.request();
-    if (status == PermissionStatus.granted) {
+    late PermissionStatus status;
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt >= 33) {
+        status = await Permission.photos.request();
+      } else {
+        status = await Permission.storage.request();
+      }
+    } else if(Platform.isIOS) {
+      status = await Permission.photos.request();
+    }
+
+    if (status.isGranted) {
       _selectImage(false);
-    } else if (status == PermissionStatus.denied) {
+    } else if (status.isDenied) {
       Fluttertoast.showToast(
-        msg: "Tum ghar jao",
+        msg: "Permission is Denied",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black87,
         textColor: Colors.white,
         fontSize: 16.0,
       );
-    } else if (status == PermissionStatus.permanentlyDenied) {
+    } else if (status.isPermanentlyDenied) {
       openAppSettings();
     }
   }
@@ -108,7 +120,7 @@ class _FillProfileState extends State<FillProfile> {
     _emailController = TextEditingController();
     _phoneNumberController = TextEditingController();
 
-    fillProfileEditTextMap = [
+    _fillProfileEditTextMap = [
       {
         'title': 'Username',
         'controller': _userNameController,
@@ -129,7 +141,7 @@ class _FillProfileState extends State<FillProfile> {
         'title': 'Phone Number',
         'controller': _phoneNumberController,
         'inputType': TextInputType.phone,
-        'suffixIcon': CupertinoIcons.phone,
+        'suffixIcon': Icons.phone,
       },
     ];
 
@@ -273,7 +285,7 @@ class _FillProfileState extends State<FillProfile> {
                 ),
               ),
               const SizedBox(height: 30),
-              ...fillProfileEditTextMap.map((fieldData) {
+              ..._fillProfileEditTextMap.map((fieldData) {
                 return Column(
                   children: [
                     EditTextWithTitle(
