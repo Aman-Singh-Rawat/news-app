@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/main.dart';
 import 'package:news_app/utils/colors.dart';
 import 'package:news_app/widgets/CustomButton.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class FillProfile extends StatefulWidget {
   const FillProfile({super.key});
@@ -19,14 +21,118 @@ class _FillProfileState extends State<FillProfile> {
   File? _image;
   final picker = ImagePicker();
 
-  final _userNameController = TextEditingController();
-  final _fullNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+  late final _userNameController;
+  late final _fullNameController;
+  late final _emailController;
+  late final _phoneNumberController;
+
   bool _isAllTextFill = false;
+
+  late final List<Map<String, dynamic>> fillProfileEditTextMap;
+
+  // Camera Permission Request
+  Future<void> requestCameraPermission() async {
+    final status = await Permission.camera.request();
+    if (status == PermissionStatus.granted) {
+      _selectImage(true);
+    } else if (status == PermissionStatus.denied) {
+      Fluttertoast.showToast(
+        msg: "Tum ghar jao",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } else if (status == PermissionStatus.permanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
+  // Gallery Permission
+  Future<void> requestGalleryPermission() async {
+    final status = await Permission.photos.request();
+    if (status == PermissionStatus.granted) {
+      _selectImage(false);
+    } else if (status == PermissionStatus.denied) {
+      Fluttertoast.showToast(
+        msg: "Tum ghar jao",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    } else if (status == PermissionStatus.permanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
+  void _showSuccessDialog() {
+    if (_isAllTextFill) {
+      showDialog(
+        context: context,
+        builder:
+            (context) => AlertDialog(
+              title: Image.asset("assets/images/img_success.png", height: 180),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 10),
+                  Text(
+                    "Great!\nYour account has been created successfully",
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10),
+                  customButton(
+                    color: primaryColor,
+                    buttonName: "Go to Home",
+                    onClick: () {},
+                  ),
+                ],
+              ),
+            ),
+      );
+    }
+  }
 
   @override
   void initState() {
+    _userNameController = TextEditingController();
+    _fullNameController = TextEditingController();
+    _emailController = TextEditingController();
+    _phoneNumberController = TextEditingController();
+
+    fillProfileEditTextMap = [
+      {
+        'title': 'Username',
+        'controller': _userNameController,
+        'inputType': TextInputType.name,
+      },
+      {
+        'title': 'Full Name',
+        'controller': _fullNameController,
+        'inputType': TextInputType.name,
+      },
+      {
+        'title': 'Email',
+        'controller': _emailController,
+        'inputType': TextInputType.emailAddress,
+        'suffixIcon': Icons.email_rounded,
+      },
+      {
+        'title': 'Phone Number',
+        'controller': _phoneNumberController,
+        'inputType': TextInputType.phone,
+        'suffixIcon': CupertinoIcons.phone,
+      },
+    ];
+
     _userNameController.addListener(_rebuildUi);
     _fullNameController.addListener(_rebuildUi);
     _emailController.addListener(_rebuildUi);
@@ -69,7 +175,7 @@ class _FillProfileState extends State<FillProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: requestCameraPermission,
                         label: Text(
                           "Camera",
                           style: TextStyle(
@@ -80,7 +186,7 @@ class _FillProfileState extends State<FillProfile> {
                         icon: Icon(Icons.camera),
                       ),
                       TextButton.icon(
-                        onPressed: () {},
+                        onPressed: requestGalleryPermission,
                         label: Text(
                           "Gallery",
                           style: TextStyle(
@@ -113,6 +219,9 @@ class _FillProfileState extends State<FillProfile> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+      }
+      if (context.mounted) {
+        Navigator.of(context).pop();
       }
     });
   }
@@ -164,44 +273,25 @@ class _FillProfileState extends State<FillProfile> {
                 ),
               ),
               const SizedBox(height: 30),
-              EditTextWithTitle(
-                title: "Username",
-                inputType: TextInputType.name,
-                isPrimaryColor:
-                    _userNameController.text.toString().trim().isNotEmpty,
-                controller: _userNameController,
-              ),
-              const SizedBox(height: 20),
-              EditTextWithTitle(
-                title: "Full Name",
-                inputType: TextInputType.name,
-                isPrimaryColor:
-                    _fullNameController.text.toString().trim().isNotEmpty,
-                controller: _fullNameController,
-              ),
-              const SizedBox(height: 20),
-              EditTextWithTitle(
-                title: "Email",
-                inputType: TextInputType.name,
-                suffixIcon: Icons.email_rounded,
-                isPrimaryColor:
-                    _emailController.text.toString().trim().isNotEmpty,
-                controller: _emailController,
-              ),
-              const SizedBox(height: 20),
-              EditTextWithTitle(
-                title: "Phone Number",
-                inputType: TextInputType.name,
-                suffixIcon: CupertinoIcons.phone,
-                isPrimaryColor:
-                    _phoneNumberController.text.toString().trim().isNotEmpty,
-                controller: _phoneNumberController,
-              ),
-              const SizedBox(height: 20),
+              ...fillProfileEditTextMap.map((fieldData) {
+                return Column(
+                  children: [
+                    EditTextWithTitle(
+                      title: fieldData["title"],
+                      inputType: fieldData["inputType"],
+                      isPrimaryColor:
+                      fieldData["controller"].text.trim().isNotEmpty,
+                      controller: fieldData["controller"],
+                      suffixIcon: fieldData["suffixIcon"],
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                );
+              },),
               customButton(
                 color: _isAllTextFill ? primaryColor : lightRose,
                 buttonName: "Continue",
-                onClick: () {},
+                onClick: _showSuccessDialog,
               ),
               const SizedBox(height: 10),
             ],
