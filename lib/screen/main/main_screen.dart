@@ -47,7 +47,6 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _bottomNavigationItem[_bottomNavigationPosition],
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -69,8 +68,8 @@ class _MainScreenState extends State<MainScreen> {
                 });
               },
               child: Container(
-                width: 50,
-                height: 40,
+                width: 55,
+                height: 42,
                 decoration: BoxDecoration(
                   color: flag ? primaryColor : primaryColor.withAlpha(30),
                   borderRadius: BorderRadius.circular(10),

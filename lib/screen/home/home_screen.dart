@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../widgets/section_header.dart';
 
@@ -62,11 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             decoration: InputDecoration(
               hintText: "Search",
-              hintStyle: TextStyle(
-                color: Colors.grey.shade500,
-                fontSize: 14,
-              ),
-              suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey,),
+              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+              suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey),
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 5,
                 horizontal: 20,
@@ -80,9 +78,95 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          sectionHeader(headerText: "Featured")
+          sectionHeader(headerText: "Featured"),
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  width: double.maxFinite,
+                  height: 240,
+                  placeholder: MemoryImage(kTransparentImage),
+                  fit: BoxFit.cover,
+                  fadeInDuration: Duration(milliseconds: 400),
+                  image: NetworkImage(
+                    "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0411%2Fr1477135_1296x729_16%2D9.jpg&w=1140&cquality=40&format=jpg",
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 240,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.black.withAlpha(10),
+                        Colors.black.withAlpha(70),
+                        Colors.black.withAlpha(95),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        maxLines: 1,
+                        "Cristiano Ronaldo has been excluded from Al-Nassr's matchday that will face Damac on Tuesday in a Saudi Pro League clash.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 0,
+                            horizontal: 16,
+                          ),
+                          backgroundColor: primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                        ),
+                        child: Text(
+                          "Read Now",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 }
+
+//https://static01.nyt.com/images/2023/11/20/multimedia/20microsoft-openai-lpwt/20microsoft-openai-lpwt-superJumbo.jpg?quality=75&auto=webp

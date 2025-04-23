@@ -29,6 +29,7 @@ Widget sectionHeader({required String headerText}) {
           ),
         ],
       ),
+      const SizedBox(height: 20),
     ],
   );
 }
