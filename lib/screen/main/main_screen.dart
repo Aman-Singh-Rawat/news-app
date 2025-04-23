@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../bookmark/bookmark_screen.dart';
+import '../home/home_screen.dart';
+import '../mynews/my_news.dart';
+import '../profile/my_profile.dart';
+import '../search/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,7 +16,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _position = 0;
+  int _bottomNavigationPosition = 0;
 
   final _bottomNavigationUnselectedList = [
     Icons.home_outlined,
@@ -29,9 +34,18 @@ class _MainScreenState extends State<MainScreen> {
     CupertinoIcons.person_fill,
   ];
 
+  final _bottomNavigationItem = [
+    HomeScreen(),
+    SearchScreen(),
+    BookmarkScreen(),
+    MyNews(),
+    MyProfile(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: _bottomNavigationItem[_bottomNavigationPosition],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
@@ -46,12 +60,12 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children:
           _bottomNavigationUnselectedList.asMap().entries.map((element) {
-            bool flag = _position == element.key;
+            bool flag = _bottomNavigationPosition == element.key;
             return InkWell(
               radius: 10,
               onTap: () {
                 setState(() {
-                  _position = element.key;
+                  _bottomNavigationPosition = element.key;
                 });
               },
               child: Container(
