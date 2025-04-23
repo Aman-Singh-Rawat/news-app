@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/screen/home/home_screen.dart';
+import 'package:news_app/screen/main/main_screen.dart';
 import 'package:news_app/screen/profile/fill_profile.dart';
 
 void main() async {
@@ -37,7 +39,7 @@ class NewsApp extends StatelessWidget {
         textTheme: GoogleFonts.merriweatherTextTheme(),
         colorScheme: ColorScheme.light(primary: primaryColor),
       ),
-      home: FillProfile(),
+      home: MainScreen(),
     );
   }
 }
