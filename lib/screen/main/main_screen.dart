@@ -72,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                 width: 50,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: flag ? primaryColor : primaryColor.withAlpha(40),
+                  color: flag ? primaryColor : primaryColor.withAlpha(30),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
