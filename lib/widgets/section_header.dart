@@ -14,7 +14,7 @@ Widget sectionHeader({required String headerText}) {
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w600,
-              fontSize: 20,
+              fontSize: 18,
             ),
           ),
           InkWell(
@@ -23,7 +23,7 @@ Widget sectionHeader({required String headerText}) {
               style: TextStyle(
                 color: primaryColor,
                 fontWeight: FontWeight.w900,
-                fontSize: 17,
+                fontSize: 15,
               ),
             ),
           ),

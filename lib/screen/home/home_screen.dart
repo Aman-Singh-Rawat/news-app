@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
+import 'package:news_app/utils/constant.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../widgets/section_header.dart';
@@ -14,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String _selectedCategoryName = "Trending";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,7 +46,58 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 20),
           ],
         ),
-        body: Column(children: [topScreenPart]),
+        body: Column(children: [topScreenPart, bottomScreenPart]),
+      ),
+    );
+  }
+
+  get bottomScreenPart {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: sectionHeader(headerText: "News"),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: newsCategories.map((e) => categoryCard(e)).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget categoryCard(String categoryName) {
+    bool isSelected = _selectedCategoryName == categoryName;
+    return Container(
+      margin: EdgeInsets.only(
+        left: categoryName == "Trending" ? 20 : 10,
+        right: categoryName == "World" ? 20 : 0,
+      ),
+      child: InkWell(
+        radius: 24,
+        borderRadius: BorderRadius.circular(24),
+        onTap: () {
+          _selectedCategoryName = categoryName;
+          setState(() {});
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: primaryColor, width: 2),
+            color: isSelected ? primaryColor : Colors.white,
+          ),
+          child: Text(
+            categoryName,
+            style: TextStyle(
+              color: isSelected ? Colors.white : primaryColor,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -81,16 +135,31 @@ class _HomeScreenState extends State<HomeScreen> {
           sectionHeader(headerText: "Featured"),
           Stack(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: FadeInImage(
-                  width: double.maxFinite,
-                  height: 240,
-                  placeholder: MemoryImage(kTransparentImage),
-                  fit: BoxFit.cover,
-                  fadeInDuration: Duration(milliseconds: 400),
-                  image: NetworkImage(
-                    "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0411%2Fr1477135_1296x729_16%2D9.jpg&w=1140&cquality=40&format=jpg",
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                    width: double.maxFinite,
+                    height: 240,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey,
+                        child: const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 100,
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    },
+                    placeholder: MemoryImage(kTransparentImage),
+                    fit: BoxFit.cover,
+                    fadeInDuration: Duration(milliseconds: 400),
+                    image: NetworkImage(
+                      "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0411%2Fr1477135_1296x729_16%2D9.jpg&w=1140&cquality=40&format=jpg",
+                    ),
                   ),
                 ),
               ),
@@ -98,19 +167,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  height: 240,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withAlpha(10),
-                        Colors.black.withAlpha(70),
-                        Colors.black.withAlpha(95),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Container(
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(10, 0, 0, 0),
+                          Color.fromARGB(20, 0, 0, 0),
+                          Color.fromARGB(80, 0, 0, 0),
+                          Color.fromARGB(95, 0, 0, 0),
+                          Color.fromARGB(100, 0, 0, 0),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
                     ),
                   ),
                 ),
@@ -122,6 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -129,12 +203,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Cristiano Ronaldo has been excluded from Al-Nassr's matchday that will face Damac on Tuesday in a Saudi Pro League clash.",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       TextButton(
                         onPressed: () {},
                         style: TextButton.styleFrom(
@@ -144,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           backgroundColor: primaryColor,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                         child: Text(
@@ -156,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                     ],
                   ),
                 ),
