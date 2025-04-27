@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:news_app/main.dart';
+import 'package:news_app/screen/home/notification_screen.dart';
 import 'package:news_app/utils/constant.dart';
 import 'package:news_app/widgets/network_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -41,24 +42,25 @@ class _HomeScreenState extends State<HomeScreen> {
     final params = {
       'Trending': 'top-headlines?country=us&pageSize=6',
       'Latest': 'everything?q=india&sortBy=popularity&language=en',
-      'Politics': 'everything?q=politics&sortBy=popularity&language=en&pageSize=6',
+      'Politics':
+          'everything?q=politics&sortBy=popularity&language=en&pageSize=6',
       'Health': 'top-headlines?category=health&language=en&pageSize=6',
       'Technology': 'top-headlines?category=technology&language=en&pageSize=6',
       'Business': 'top-headlines?category=business&language=en&pageSize=6',
-      'Entertainment': 'top-headlines?category=entertainment&language=en&pageSize=6',
+      'Entertainment':
+          'top-headlines?category=entertainment&language=en&pageSize=6',
       'Sports': 'top-headlines?category=sports&language=en&pageSize=6',
       'Science': 'top-headlines?category=science&language=en&pageSize=6',
     };
 
-    final endpoint = params[_selectedCategoryName] ??
+    final endpoint =
+        params[_selectedCategoryName] ??
         'top-headlines?category=general&language=en&pageSize=10';
 
     return '$baseUrl$endpoint&apiKey=$apiKey';
   }
 
   Future<NetworkNews> getNewsFromNetwork() async {
-
-
     try {
       final response = await http.get(Uri.parse(sortNews()));
       if (response.statusCode == 200) {
@@ -68,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (_selectedCategoryName == "Trending") {
           setState(() {
             featuredArticle = networkNews.articles.firstWhere(
-                  (element) => element.urlToImage != null,
+              (element) => element.urlToImage != null,
             );
           });
         }
@@ -108,20 +110,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontSize: 24,
                   ),
                 ),
                 actions: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 11,
+                  InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => NotificationScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 11,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: primaryColor.withAlpha(30),
+                      ),
+                      child: Icon(
+                        CupertinoIcons.bell_fill,
+                        color: primaryColor,
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: primaryColor.withAlpha(30),
-                    ),
-                    child: Icon(CupertinoIcons.bell_fill, color: primaryColor),
                   ),
                   const SizedBox(width: 20),
                 ],

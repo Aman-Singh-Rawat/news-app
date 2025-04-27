@@ -12,16 +12,10 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
-  // Verify the key loaded
-  if (dotenv.env['API_KEY'] == null) {
-    debugPrint('❌ ERROR: API KEY NOT LOADED FROM .env');
-  } else {
-    debugPrint('✅ API Key loaded successfully');
-  }
   runApp(const NewsApp());
 }
 
-const primaryColor = Color(0XFFFF7670);
+const primaryColor = Color(0XFFFF7A77);
 
 class NewsApp extends StatelessWidget {
   const NewsApp({super.key});
