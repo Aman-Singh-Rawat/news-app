@@ -7,11 +7,17 @@ import 'package:news_app/screen/main/main_screen.dart';
 import 'package:news_app/screen/profile/fill_profile.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
+  // Verify the key loaded
+  if (dotenv.env['API_KEY'] == null) {
+    debugPrint('❌ ERROR: API KEY NOT LOADED FROM .env');
+  } else {
+    debugPrint('✅ API Key loaded successfully');
+  }
   runApp(const NewsApp());
 }
 

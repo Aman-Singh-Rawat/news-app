@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedCategoryName = "Trending";
   late Future<NetworkNews> _newsFuture;
   Article? featuredArticle;
-  final apiKey = dotenv.env['API_KEY'];
 
   @override
   void initState() {
@@ -33,46 +34,57 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String sortNews() {
-    if (_selectedCategoryName == "Trending") {
-      return "https://newsapi.org/v2/top-headlines?country=us&$apiKey";
-    } else if (_selectedCategoryName == "Latest") {
-      return "https://newsapi.org/v2/everything?q=india&from=2025-04-25&to=2025-04-25&sortBy=popularity&language=en&$apiKey";
-    } else if (_selectedCategoryName == "Politics") {
-      return "https://newsapi.org/v2/everything?q=politics&from=2025-04-25&to=2025-04-25&sortBy=popularity&language=en&$apiKey";
-    } else if (_selectedCategoryName == "Health") {
-      return "https://newsapi.org/v2/top-headlines?category=health&language=en&pageSize=10&$apiKey";
-    } else if (_selectedCategoryName == "Technology") {
-      return "https://newsapi.org/v2/top-headlines?category=technology&language=en&pageSize=10&$apiKey";
-    } else if (_selectedCategoryName == "Business") {
-      return "https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=10&$apiKey";
-    } else if (_selectedCategoryName == "Entertainment") {
-      return "https://newsapi.org/v2/top-headlines?category=entertainment&language=en&pageSize=10&$apiKey";
-    } else if (_selectedCategoryName == "Sports") {
-      return "https://newsapi.org/v2/top-headlines?category=sports&language=en&pageSize=10&$apiKey";
-    } else if (_selectedCategoryName == "Science") {
-      return "https://newsapi.org/v2/top-headlines?category=science&language=en&pageSize=10&$apiKey";
-    } else {
-      return "https://newsapi.org/v2/top-headlines?category=general&language=en&pageSize=10&$apiKey";
-    }
+    final apiKey = dotenv.env['API_KEY'] ?? '';
+    debugPrint('API Key being used: $apiKey');
+
+    final baseUrl = 'https://newsapi.org/v2/';
+    final params = {
+      'Trending': 'top-headlines?country=us&pageSize=6',
+      'Latest': 'everything?q=india&sortBy=popularity&language=en',
+      'Politics': 'everything?q=politics&sortBy=popularity&language=en&pageSize=6',
+      'Health': 'top-headlines?category=health&language=en&pageSize=6',
+      'Technology': 'top-headlines?category=technology&language=en&pageSize=6',
+      'Business': 'top-headlines?category=business&language=en&pageSize=6',
+      'Entertainment': 'top-headlines?category=entertainment&language=en&pageSize=6',
+      'Sports': 'top-headlines?category=sports&language=en&pageSize=6',
+      'Science': 'top-headlines?category=science&language=en&pageSize=6',
+    };
+
+    final endpoint = params[_selectedCategoryName] ??
+        'top-headlines?category=general&language=en&pageSize=10';
+
+    return '$baseUrl$endpoint&apiKey=$apiKey';
   }
 
   Future<NetworkNews> getNewsFromNetwork() async {
-    final response = await http.get(Uri.parse(sortNews()));
 
-    if (response.statusCode == 200) {
-      NetworkNews networkNews = NetworkNews.fromJson(
-        jsonDecode(response.body) as Map<String, dynamic>,
-      );
-      if (_selectedCategoryName == "Trending") {
-        setState(() {
-          featuredArticle = networkNews.articles.firstWhere(
-            (element) => element.urlToImage != null,
-          );
-        });
+
+    try {
+      final response = await http.get(Uri.parse(sortNews()));
+      if (response.statusCode == 200) {
+        NetworkNews networkNews = NetworkNews.fromJson(
+          jsonDecode(response.body) as Map<String, dynamic>,
+        );
+        if (_selectedCategoryName == "Trending") {
+          setState(() {
+            featuredArticle = networkNews.articles.firstWhere(
+                  (element) => element.urlToImage != null,
+            );
+          });
+        }
+        return networkNews;
+      } else {
+        debugPrint('Response status code: ${response.statusCode}');
+        debugPrint('Response body: ${response.body}');
+        throw Exception("Failed to load news");
       }
-      return networkNews;
-    } else {
-      throw Exception("Failed to load news");
+    } on SocketException {
+      throw Exception('No Internet connection');
+    } on TimeoutException {
+      throw Exception('Request timed out');
+    } catch (e) {
+      debugPrint('Detailed error: $e');
+      throw Exception('Failed to load news');
     }
   }
 
