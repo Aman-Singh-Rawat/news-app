@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:news_app/main.dart';
 import 'package:news_app/utils/constant.dart';
+import 'package:news_app/widgets/network_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
-
+import 'package:http/http.dart' as http;
+import '../../utils/reusable.dart';
+import '../../widgets/news_category_widget.dart';
 import '../../widgets/section_header.dart';
 
-// friday morning
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,37 +22,104 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String _selectedCategoryName = "Trending";
+  late Future<NetworkNews> _newsFuture;
+  Article? featuredArticle;
+  final apiKey = dotenv.env['API_KEY'];
+
+  @override
+  void initState() {
+    _newsFuture = getNewsFromNetwork();
+    super.initState();
+  }
+
+  String sortNews() {
+    if (_selectedCategoryName == "Trending") {
+      return "https://newsapi.org/v2/top-headlines?country=us&$apiKey";
+    } else if (_selectedCategoryName == "Latest") {
+      return "https://newsapi.org/v2/everything?q=india&from=2025-04-25&to=2025-04-25&sortBy=popularity&language=en&$apiKey";
+    } else if (_selectedCategoryName == "Politics") {
+      return "https://newsapi.org/v2/everything?q=politics&from=2025-04-25&to=2025-04-25&sortBy=popularity&language=en&$apiKey";
+    } else if (_selectedCategoryName == "Health") {
+      return "https://newsapi.org/v2/top-headlines?category=health&language=en&pageSize=10&$apiKey";
+    } else if (_selectedCategoryName == "Technology") {
+      return "https://newsapi.org/v2/top-headlines?category=technology&language=en&pageSize=10&$apiKey";
+    } else if (_selectedCategoryName == "Business") {
+      return "https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=10&$apiKey";
+    } else if (_selectedCategoryName == "Entertainment") {
+      return "https://newsapi.org/v2/top-headlines?category=entertainment&language=en&pageSize=10&$apiKey";
+    } else if (_selectedCategoryName == "Sports") {
+      return "https://newsapi.org/v2/top-headlines?category=sports&language=en&pageSize=10&$apiKey";
+    } else if (_selectedCategoryName == "Science") {
+      return "https://newsapi.org/v2/top-headlines?category=science&language=en&pageSize=10&$apiKey";
+    } else {
+      return "https://newsapi.org/v2/top-headlines?category=general&language=en&pageSize=10&$apiKey";
+    }
+  }
+
+  Future<NetworkNews> getNewsFromNetwork() async {
+    final response = await http.get(Uri.parse(sortNews()));
+
+    if (response.statusCode == 200) {
+      NetworkNews networkNews = NetworkNews.fromJson(
+        jsonDecode(response.body) as Map<String, dynamic>,
+      );
+      if (_selectedCategoryName == "Trending") {
+        setState(() {
+          featuredArticle = networkNews.articles.firstWhere(
+            (element) => element.urlToImage != null,
+          );
+        });
+      }
+      return networkNews;
+    } else {
+      throw Exception("Failed to load news");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (featuredArticle == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20, top: 2),
-            child: Image.asset("assets/images/img_logo_icon.png"),
-          ),
-          title: Text(
-            "Newsly",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 24,
-            ),
-          ),
-          actions: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 11),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: primaryColor.withAlpha(30),
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 20, top: 2),
+                  child: Image.asset("assets/images/img_logo_icon.png"),
+                ),
+                title: Text(
+                  "Newsly",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                  ),
+                ),
+                actions: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 11,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: primaryColor.withAlpha(30),
+                    ),
+                    child: Icon(CupertinoIcons.bell_fill, color: primaryColor),
+                  ),
+                  const SizedBox(width: 20),
+                ],
               ),
-              child: Icon(CupertinoIcons.bell_fill, color: primaryColor),
-            ),
-            const SizedBox(width: 20),
-          ],
+            ];
+          },
+          body: SingleChildScrollView(
+            child: Column(children: [topScreenPart, bottomScreenPart]),
+          ),
         ),
-        body: Column(children: [topScreenPart, bottomScreenPart]),
       ),
     );
   }
@@ -64,6 +137,30 @@ class _HomeScreenState extends State<HomeScreen> {
             children: newsCategories.map((e) => categoryCard(e)).toList(),
           ),
         ),
+
+        FutureBuilder(
+          future: _newsFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            }
+
+            if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            }
+
+            if (!snapshot.hasData || snapshot.data!.articles.isEmpty) {
+              return Text("No Articles available");
+            }
+            return Column(
+              children: snapshot.data!.articles
+                  .map((article) => NetworkNewsWidget(article: article))
+                  .toList()
+                  .sublist(0, 5),
+            );
+          },
+        ),
+        const SizedBox(height: 20),
       ],
     );
   }
@@ -79,8 +176,10 @@ class _HomeScreenState extends State<HomeScreen> {
         radius: 24,
         borderRadius: BorderRadius.circular(24),
         onTap: () {
-          _selectedCategoryName = categoryName;
-          setState(() {});
+          setState(() {
+            _selectedCategoryName = categoryName;
+            _newsFuture = getNewsFromNetwork();
+          });
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
@@ -142,24 +241,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: FadeInImage(
                     width: double.maxFinite,
                     height: 240,
-                    imageErrorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey,
-                        child: const Center(
-                          child: Icon(
-                            Icons.broken_image,
-                            size: 100,
-                            color: Colors.white,
-                          ),
+                    imageErrorBuilder:
+                        (context, error, stackTrace) => imageErrorBuilderWidget(
+                          context,
+                          error,
+                          stackTrace,
+                          20,
                         ),
-                      );
-                    },
                     placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
                     fadeInDuration: Duration(milliseconds: 400),
-                    image: NetworkImage(
-                      "https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0411%2Fr1477135_1296x729_16%2D9.jpg&w=1140&cquality=40&format=jpg",
-                    ),
+                    image: NetworkImage(featuredArticle?.urlToImage ?? ""),
                   ),
                 ),
               ),
@@ -200,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         maxLines: 1,
-                        "Cristiano Ronaldo has been excluded from Al-Nassr's matchday that will face Damac on Tuesday in a Saudi Pro League clash.",
+                        featuredArticle?.title ?? "",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -242,5 +334,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-//https://static01.nyt.com/images/2023/11/20/multimedia/20microsoft-openai-lpwt/20microsoft-openai-lpwt-superJumbo.jpg?quality=75&auto=webp
