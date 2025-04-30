@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:news_app/main.dart';
+import 'package:news_app/screen/home/featured_news.dart';
 import 'package:news_app/screen/home/notification_screen.dart';
 import 'package:news_app/utils/constant.dart';
 import 'package:news_app/widgets/network_news_widget.dart';
@@ -40,17 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final baseUrl = 'https://newsapi.org/v2/';
     final params = {
-      'Trending': 'top-headlines?country=us&pageSize=6',
+      'Trending': 'top-headlines?country=us',
       'Latest': 'everything?q=india&sortBy=popularity&language=en',
       'Politics':
-          'everything?q=politics&sortBy=popularity&language=en&pageSize=6',
-      'Health': 'top-headlines?category=health&language=en&pageSize=6',
-      'Technology': 'top-headlines?category=technology&language=en&pageSize=6',
-      'Business': 'top-headlines?category=business&language=en&pageSize=6',
+          'everything?q=politics&sortBy=popularity&language=en',
+      'Health': 'top-headlines?category=health&language=en',
+      'Technology': 'top-headlines?category=technology&language=en=6',
+      'Business': 'top-headlines?category=business&language=en',
       'Entertainment':
-          'top-headlines?category=entertainment&language=en&pageSize=6',
-      'Sports': 'top-headlines?category=sports&language=en&pageSize=6',
-      'Science': 'top-headlines?category=science&language=en&pageSize=6',
+          'top-headlines?category=entertainment&language=en',
+      'Sports': 'top-headlines?category=sports&language=en',
+      'Science': 'top-headlines?category=science&language=en',
     };
 
     final endpoint =
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: sectionHeader(headerText: "News"),
+          child: sectionHeader(headerText: "News", onClick: () {}),
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -257,7 +258,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          sectionHeader(headerText: "Featured"),
+          sectionHeader(
+            headerText: "Featured",
+            onClick: () {
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => FeaturedNews()));
+            },
+          ),
           Stack(
             children: [
               AspectRatio(
