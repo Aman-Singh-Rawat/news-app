@@ -123,9 +123,43 @@ class _SearchScreenState extends State<SearchScreen>
             ),
           ),
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [Text("first 1"), Text("first 2"), Text("first 3")],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(
+                        "assets/images/img_no_result_found.png",
+                        width: 200,
+                        height: 200,
+                      ),
+                      Text(
+                        "No result found",
+                        style: TextStyle(
+                          color: primaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Please try another keyword",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text("first 2"),
+                  Text("first 3"),
+                ],
+              ),
             ),
           ),
         ],
