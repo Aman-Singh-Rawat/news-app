@@ -9,6 +9,7 @@ import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:news_app/main.dart';
 import 'package:news_app/screen/home/featured_news.dart';
 import 'package:news_app/screen/home/notification_screen.dart';
+import 'package:news_app/screen/news_detail/news_detail_screen.dart';
 import 'package:news_app/utils/constant.dart';
 import 'package:news_app/widgets/network_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -43,13 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
     final params = {
       'Trending': 'top-headlines?country=us',
       'Latest': 'everything?q=india&sortBy=popularity&language=en',
-      'Politics':
-          'everything?q=politics&sortBy=popularity&language=en',
+      'Politics': 'everything?q=politics&sortBy=popularity&language=en',
       'Health': 'top-headlines?category=health&language=en',
       'Technology': 'top-headlines?category=technology&language=en=6',
       'Business': 'top-headlines?category=business&language=en',
-      'Entertainment':
-          'top-headlines?category=entertainment&language=en',
+      'Entertainment': 'top-headlines?category=entertainment&language=en',
       'Sports': 'top-headlines?category=sports&language=en',
       'Science': 'top-headlines?category=science&language=en',
     };
@@ -114,29 +113,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 actions: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () {
+                  appBarAction(
+                    context: context,
+                    icon: CupertinoIcons.bell_fill,
+                    onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => NotificationScreen(),
                         ),
                       );
                     },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 11,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: primaryColor.withAlpha(30),
-                      ),
-                      child: Icon(
-                        CupertinoIcons.bell_fill,
-                        color: primaryColor,
-                      ),
-                    ),
                   ),
                   const SizedBox(width: 20),
                 ],
@@ -336,7 +322,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 5),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => NewsDetailScreen(article: featuredArticle!,),
+                            ),
+                          );
+                        },
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             vertical: 0,

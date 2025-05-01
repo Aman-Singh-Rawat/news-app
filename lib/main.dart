@@ -27,6 +27,7 @@ class NewsApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: primaryColor),
           titleTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 20,
