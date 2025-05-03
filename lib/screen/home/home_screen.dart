@@ -15,7 +15,7 @@ import 'package:news_app/widgets/network_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:http/http.dart' as http;
 import '../../utils/reusable.dart';
-import '../../widgets/news_category_widget.dart';
+import '../../widgets/user_created_news_widget.dart';
 import '../../widgets/section_header.dart';
 
 class HomeScreen extends StatefulWidget {

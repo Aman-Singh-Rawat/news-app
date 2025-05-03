@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:news_app/widgets/section_header.dart';
+import 'package:news_app/widgets/user_created_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../main.dart';
@@ -332,7 +333,8 @@ class NewsDetailScreen extends StatelessWidget {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
                                 borderSide: BorderSide(
-                                  color: Colors.grey.shade200,
+                                  color: primaryColor,
+                                  width: 2
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -352,7 +354,9 @@ class NewsDetailScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Divider(),
               sectionHeader(headerText: "Related", onClick: () {}),
-              const SizedBox(height: 20,),
+              userCreatedNewsWidget(),
+              userCreatedNewsWidget(),
+              userCreatedNewsWidget(),
             ],
           ),
         ),
