@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
+import 'package:news_app/widgets/section_header.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../main.dart';
@@ -63,7 +65,8 @@ class NewsDetailScreen extends StatelessWidget {
                     image: NetworkImage(article.urlToImage!),
                   ),
                 ),
-              ), //Reusable
+              ),
+              //Reusable
               const SizedBox(height: 20),
               Text(
                 article.title ?? "",
@@ -165,7 +168,7 @@ class NewsDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               Text(
-                article.content ?? "",
+                article.description ?? "",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.black,
@@ -222,7 +225,9 @@ class NewsDetailScreen extends StatelessWidget {
 
                   TextButton.icon(
                     style: ButtonStyle(
-                      padding: WidgetStatePropertyAll(const EdgeInsets.only(right: 2)),
+                      padding: WidgetStatePropertyAll(
+                        const EdgeInsets.only(right: 2),
+                      ),
                     ),
                     label: Text(
                       "100",
@@ -255,6 +260,99 @@ class NewsDetailScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.grey.shade200),
+                ),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 5),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Comments",
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.roboto().fontFamily,
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Text(
+                          "170.5k",
+                          style: TextStyle(
+                            fontFamily: GoogleFonts.roboto().fontFamily,
+                            color: primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: SvgPicture.asset(
+                            "assets/images/top_to_bottom_arrow.svg",
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Divider(),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 24,
+                          backgroundImage: NetworkImage(
+                            "https://cdn.pixabay.com/photo/2022/12/02/03/31/girl-7630188_1280.jpg",
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Flexible(
+                          child: TextFormField(
+                            style: TextStyle(
+                              fontFamily: GoogleFonts.poppins().fontFamily,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Add a comment...",
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade300,
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade200,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade200,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Divider(),
+              sectionHeader(headerText: "Related", onClick: () {}),
+              const SizedBox(height: 20,),
             ],
           ),
         ),

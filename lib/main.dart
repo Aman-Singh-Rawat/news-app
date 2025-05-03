@@ -34,6 +34,10 @@ class NewsApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        dividerTheme: DividerThemeData(
+          color: Colors.grey.shade200,
+
+        ),
         checkboxTheme: CheckboxThemeData(
           side: BorderSide(color: primaryColor, width: 2),
         ),
