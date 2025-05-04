@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -267,87 +268,23 @@ class NewsDetailScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Colors.grey.shade200),
                 ),
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 5),
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  bottom: 20,
+                  top: 5,
+                ),
                 child: Column(
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Comments",
-                          style: TextStyle(
-                            fontFamily: GoogleFonts.roboto().fontFamily,
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Text(
-                          "170.5k",
-                          style: TextStyle(
-                            fontFamily: GoogleFonts.roboto().fontFamily,
-                            color: primaryColor,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(
-                            "assets/images/top_to_bottom_arrow.svg",
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
-                      ],
+                    getCommentsHeader(
+                      onIconClick: () {
+                        _showModelBottomSheet(context);
+                      },
                     ),
                     const SizedBox(height: 5),
                     Divider(),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundImage: NetworkImage(
-                            "https://cdn.pixabay.com/photo/2022/12/02/03/31/girl-7630188_1280.jpg",
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Flexible(
-                          child: TextFormField(
-                            style: TextStyle(
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            decoration: InputDecoration(
-                              hintText: "Add a comment...",
-                              hintStyle: TextStyle(
-                                color: Colors.grey.shade300,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color: primaryColor,
-                                  width: 2
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color: Colors.grey.shade200,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    addAComment,
                   ],
                 ),
               ),
@@ -361,6 +298,233 @@ class NewsDetailScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget getCommentsHeader({Icon? icon, required VoidCallback onIconClick}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "Comments",
+          style: TextStyle(
+            fontFamily: GoogleFonts.roboto().fontFamily,
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(width: 20),
+        Text(
+          "170.5k",
+          style: TextStyle(
+            fontFamily: GoogleFonts.roboto().fontFamily,
+            color: primaryColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Spacer(),
+        IconButton(
+          onPressed: onIconClick,
+          icon:
+              icon ??
+              SvgPicture.asset(
+                "assets/images/top_to_bottom_arrow.svg",
+                width: 24,
+                height: 24,
+              ),
+        ),
+      ],
+    );
+  }
+
+  void _showModelBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Container(
+                width: 55,
+                height: 4,
+                margin: const EdgeInsets.only(top: 6, bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              getCommentsHeader(
+                onIconClick: () {},
+                icon: Icon(Icons.clear, color: primaryColor),
+              ),
+              const SizedBox(height: 10),
+              Divider(),
+              const SizedBox(height: 20),
+              addAComment,
+              const SizedBox(height: 20,),
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  itemBuilder:
+                      (BuildContext context, int index) => Container(
+                        margin: EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        padding: const EdgeInsets.only(top: 5, bottom: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: Colors.grey.shade200),
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: CircleAvatar(
+                                radius: 18,
+                                backgroundImage: NetworkImage(
+                                  "https://cdn.pixabay.com/photo/2016/09/26/10/26/cute-cartoon-characters-1695612_1280.png",
+                                ),
+                              ),
+                              title: Text(
+                                "Jenny Wilson",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                "3 days ago",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.more_vert,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              child: Column(
+                                children: [
+                                  Divider(),
+                                  Text(
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quam nibh, interdum eget turpis id, vehicula ultrices mauris",
+                                    style: TextStyle(fontSize: 11, height: 1.8),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Divider(),
+                                  Row(
+                                    children: [
+                                      TextButton.icon(
+                                        style: ButtonStyle(
+                                          padding: WidgetStatePropertyAll(
+                                            const EdgeInsets.only(right: 2),
+                                          ),
+                                        ),
+                                        label: Text(
+                                          "100",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily:
+                                                GoogleFonts.poppins()
+                                                    .fontFamily,
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.thumb_up_off_alt,
+                                          color: primaryColor,
+                                        ),
+                                      ),
+                                      TextButton.icon(
+                                        style: ButtonStyle(
+                                          padding: WidgetStatePropertyAll(
+                                            const EdgeInsets.all(0),
+                                          ),
+                                        ),
+                                        label: Text(
+                                          "100",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily:
+                                                GoogleFonts.poppins()
+                                                    .fontFamily,
+                                          ),
+                                        ),
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.thumb_down_off_alt_rounded,
+                                          color: primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget get addAComment {
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 24,
+          backgroundImage: NetworkImage(
+            "https://cdn.pixabay.com/photo/2022/12/02/03/31/girl-7630188_1280.jpg",
+          ),
+        ),
+        const SizedBox(width: 20),
+        Flexible(
+          child: TextFormField(
+            style: TextStyle(
+              fontFamily: GoogleFonts.poppins().fontFamily,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+            decoration: InputDecoration(
+              hintText: "Add a comment...",
+              hintStyle: TextStyle(
+                color: Colors.grey.shade300,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: BorderSide(color: primaryColor, width: 2),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: BorderSide(color: Colors.grey.shade200),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
