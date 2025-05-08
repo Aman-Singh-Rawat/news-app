@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/main.dart';
+import 'package:news_app/screen/publisher_profile/follow_screen.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 
 class PublisherProfileScreen extends StatelessWidget {
@@ -12,6 +13,19 @@ class PublisherProfileScreen extends StatelessWidget {
     "Followers": "6.5M",
     "Following": "127",
   };
+
+  _navigateToAnotherScreen(int index, BuildContext context) {
+    if (index != 0) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder:
+              (context) => FollowScreen(
+                titleName: index == 1 ? "Followers" : "Following",
+              ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,22 +117,27 @@ class PublisherProfileScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    e.value,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                              GestureDetector(
+                                onTap: () {
+                                  _navigateToAnotherScreen(index, context);
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      e.value,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    e.key,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ],
+                                    Text(
+                                      e.key,
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
                               ),
                               if (!isLast) VerticalDivider(),
                             ],
@@ -146,7 +165,16 @@ class PublisherProfileScreen extends StatelessWidget {
                 overlayColor: WidgetStatePropertyAll(Colors.transparent),
                 tabs: [Tab(text: "Top News"), Tab(text: "Recent")],
               ),
-              Expanded(child: TabBarView(children: [Text("data"), Text("data 2")]),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) => userCreatedNewsWidget(),
+                    ),
+                    Text("data 2"),
+                  ],
+                ),
               ),
             ],
           ),
