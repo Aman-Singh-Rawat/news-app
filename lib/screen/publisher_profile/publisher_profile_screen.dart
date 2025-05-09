@@ -101,7 +101,7 @@ class PublisherProfileScreen extends StatelessWidget {
                   fontFamily: GoogleFonts.poppins().fontFamily,
                 ),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 18),
               IntrinsicHeight(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,13 +128,18 @@ class PublisherProfileScreen extends StatelessWidget {
                                       e.value,
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 18,
+                                        fontFamily: GoogleFonts.roboto().fontFamily,
                                       ),
                                     ),
+                                    const SizedBox(height: 5),
                                     Text(
                                       e.key,
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                        fontFamily: GoogleFonts.poppins().fontFamily,),
                                     ),
                                   ],
                                 ),
@@ -146,7 +151,7 @@ class PublisherProfileScreen extends StatelessWidget {
                       }).toList(),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Divider(),
 
               TabBar(
