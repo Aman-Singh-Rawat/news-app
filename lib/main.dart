@@ -46,7 +46,7 @@ class NewsApp extends StatelessWidget {
         textTheme: GoogleFonts.merriweatherTextTheme(),
         colorScheme: ColorScheme.light(primary: primaryColor),
       ),
-      home: PublisherProfileScreen(),
+      home: MainScreen(),
     );
   }
 }
