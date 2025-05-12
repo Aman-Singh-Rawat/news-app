@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/main.dart';
 
 Widget imageErrorBuilderWidget(context, error, stackTrace, size) {
@@ -13,12 +14,13 @@ Widget imageErrorBuilderWidget(context, error, stackTrace, size) {
 
 Widget appBarAction({
   required BuildContext context,
-  required IconData icon,
+  IconData? icon,
+  String? svgIcon,
   required VoidCallback onPressed,
 }) {
   return IconButton(
     onPressed: onPressed,
-    icon: Icon(icon),
+    icon: svgIcon == null ? Icon(icon) : SvgPicture.asset(svgIcon!, width: 20, height: 24,),
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(primaryColor.withAlpha(30),),
       shape: WidgetStatePropertyAll(
