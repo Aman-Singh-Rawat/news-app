@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:news_app/screen/mynews/create_news.dart';
 import 'package:news_app/utils/reusable.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 
@@ -35,14 +36,17 @@ class _MyNewsState extends State<MyNews> {
             svgIcon: "assets/images/ic_save.svg",
             onPressed: () {},
           ),
-          const SizedBox(width: 20,),
+          const SizedBox(width: 20),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20,
+              ),
               child: searchView(),
             ),
             SingleChildScrollView(
@@ -72,7 +76,11 @@ class _MyNewsState extends State<MyNews> {
 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         child: Icon(CupertinoIcons.add, size: 30),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (context) => CreateNews()));
+        },
       ),
     );
   }
