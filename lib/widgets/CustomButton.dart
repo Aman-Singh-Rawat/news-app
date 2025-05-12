@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/main.dart';
 
 Widget customButton({
   required Color color,
@@ -16,6 +17,7 @@ Widget customButton({
         width: double.maxFinite,
         decoration: BoxDecoration(
           color: color,
+          border: Border.all(color: primaryColor, width: 2),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
@@ -23,7 +25,7 @@ Widget customButton({
             buttonName,
             style: TextStyle(
               fontSize: 16,
-              color: Colors.white,
+              color: color == primaryColor ? Colors.white : primaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),

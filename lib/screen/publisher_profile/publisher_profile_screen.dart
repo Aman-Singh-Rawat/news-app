@@ -130,16 +130,20 @@ class PublisherProfileScreen extends StatelessWidget {
                                         color: Colors.black,
                                         fontWeight: FontWeight.w900,
                                         fontSize: 18,
-                                        fontFamily: GoogleFonts.roboto().fontFamily,
+                                        fontFamily:
+                                            GoogleFonts.roboto().fontFamily,
                                       ),
                                     ),
                                     const SizedBox(height: 5),
                                     Text(
                                       e.key,
-                                      style: TextStyle(color: Colors.black,
+                                      style: TextStyle(
+                                        color: Colors.black,
                                         fontWeight: FontWeight.w600,
                                         fontSize: 12,
-                                        fontFamily: GoogleFonts.poppins().fontFamily,),
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -173,9 +177,16 @@ class PublisherProfileScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index) => userCreatedNewsWidget(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: ListView.builder(
+                        itemCount: 5,
+                        itemBuilder:
+                            (context, index) =>
+                                userCreatedNewsWidget(onSavedClick: () {
+
+                                }),
+                      ),
                     ),
                     Text("data 2"),
                   ],

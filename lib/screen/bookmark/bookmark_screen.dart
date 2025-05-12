@@ -81,21 +81,98 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(height: 20,),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: searchView(),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(height: 20),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: newsCategories.map((e) => categoryCard(e)).toList(),
             ),
           ),
-
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                userCreatedNewsWidget(
+                  isSaved: true,
+                  onSavedClick: _showDeleteBookmarkBottomSheet,
+                ),
+                userCreatedNewsWidget(
+                  isSaved: true,
+                  onSavedClick: _showDeleteBookmarkBottomSheet,
+                ),
+                userCreatedNewsWidget(
+                  isSaved: true,
+                  onSavedClick: _showDeleteBookmarkBottomSheet,
+                ),
+                userCreatedNewsWidget(
+                  isSaved: true,
+                  onSavedClick: _showDeleteBookmarkBottomSheet,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  void _showDeleteBookmarkBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder:
+          (context) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Container(
+                  width: 50,
+                  height: 3.5,
+                  margin: const EdgeInsets.only(top: 6, bottom: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                userCreatedNewsWidget(onSavedClick: () {}, isSaved: true),
+                const SizedBox(height: 20),
+                Text(
+                  "Remove from your bookmark?",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    Flexible(
+                      child: customButton(
+                        color: Colors.white,
+                        buttonName: "Cancel",
+                        onClick: () {},
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: customButton(
+                        color: primaryColor,
+                        buttonName: "Yes, Remove",
+                        onClick: () {},
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
     );
   }
 

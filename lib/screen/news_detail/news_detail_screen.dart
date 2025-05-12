@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
+import 'package:news_app/screen/profile/fill_profile.dart';
+import 'package:news_app/screen/profile/my_profile.dart';
+import 'package:news_app/screen/publisher_profile/publisher_profile_screen.dart';
 import 'package:news_app/widgets/section_header.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -72,13 +75,13 @@ class NewsDetailScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 article.title ?? "",
-                textAlign: TextAlign.justify,
+                textAlign: TextAlign.start,
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: GoogleFonts.poppins().fontFamily,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 0.5,
-                  fontSize: 18,
+                  fontSize: 17,
                 ),
               ),
               const SizedBox(height: 25),
@@ -121,29 +124,47 @@ class NewsDetailScreen extends StatelessWidget {
               const SizedBox(height: 25),
               Row(
                 children: [
-                  CircleAvatar(
-                    radius: 24,
-                    child: Text(article.source?.name?.substring(0, 1) ?? "U"),
-                  ),
-                  const SizedBox(width: 12),
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          article.source?.name ?? "Unknown",
-                          maxLines: 1,
-                          style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            color: primaryColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => PublisherProfileScreen()),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 24,
+                            child: Text(
+                              article.source?.name?.substring(0, 1) ?? "U",
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text("5 days ago", style: TextStyle(fontSize: 11)),
-                      ],
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  article.source?.name ?? "Unknown",
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: primaryColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  "5 days ago",
+                                  style: TextStyle(fontSize: 11),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   TextButton.icon(
@@ -171,7 +192,6 @@ class NewsDetailScreen extends StatelessWidget {
               const SizedBox(height: 25),
               Text(
                 article.description ?? "",
-                textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: GoogleFonts.poppins().fontFamily,
@@ -291,9 +311,9 @@ class NewsDetailScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Divider(),
               sectionHeader(headerText: "Related", onClick: () {}),
-              userCreatedNewsWidget(),
-              userCreatedNewsWidget(),
-              userCreatedNewsWidget(),
+              userCreatedNewsWidget(onSavedClick: () {}),
+              userCreatedNewsWidget(onSavedClick: () {}),
+              userCreatedNewsWidget(onSavedClick: () {}),
             ],
           ),
         ),
@@ -342,7 +362,7 @@ class NewsDetailScreen extends StatelessWidget {
   void _showModelBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -364,16 +384,14 @@ class NewsDetailScreen extends StatelessWidget {
               Divider(),
               const SizedBox(height: 20),
               addAComment,
-              const SizedBox(height: 20,),
+              const SizedBox(height: 20),
               Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: 3,
                   itemBuilder:
                       (BuildContext context, int index) => Container(
-                        margin: EdgeInsets.only(
-                          bottom: 20,
-                        ),
+                        margin: EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.only(top: 5, bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),

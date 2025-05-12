@@ -5,14 +5,14 @@ import 'package:transparent_image/transparent_image.dart';
 import '../main.dart';
 import '../utils/reusable.dart';
 
-Widget userCreatedNewsWidget() {
+Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSavedClick}) {
   return AspectRatio(
-    aspectRatio: 16 / 9,
+    aspectRatio: 16 / 8,
     child: Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade300, width: 1),
+        border: Border.all(color: Colors.grey.shade100, width: 1),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,17 +33,17 @@ Widget userCreatedNewsWidget() {
                     child: FadeInImage(
                       imageErrorBuilder:
                           (context, error, stackTrace) =>
-                          imageErrorBuilderWidget(
-                            context,
-                            error,
-                            stackTrace,
-                            12,
-                          ),
+                              imageErrorBuilderWidget(
+                                context,
+                                error,
+                                stackTrace,
+                                12,
+                              ),
                       fit: BoxFit.cover,
                       fadeInDuration: Duration(milliseconds: 400),
                       placeholder: MemoryImage(kTransparentImage),
                       image: NetworkImage(
-                        "https://cdn.pixabay.com/photo/2022/03/07/08/22/animal-7053171_1280.jpg",
+                        "https://cdn.pixabay.com/photo/2025/03/16/14/12/cat-9473998_1280.jpg",
                       ),
                     ),
                   ),
@@ -129,11 +129,7 @@ Widget userCreatedNewsWidget() {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Icon(
-                        Icons.chat_outlined,
-                        size: 18,
-                        color: primaryColor,
-                      ),
+                      Icon(Icons.chat_outlined, size: 18, color: primaryColor),
                       const SizedBox(width: 5),
                       Text(
                         "110.5K",
@@ -144,7 +140,13 @@ Widget userCreatedNewsWidget() {
                         ),
                       ),
                       Spacer(),
-                      Icon(Icons.bookmark_border, color: primaryColor),
+                      InkWell(
+                        onTap: onSavedClick,
+                        child: Icon(
+                          isSaved ? Icons.bookmark : Icons.bookmark_border,
+                          color: primaryColor,
+                        ),
+                      ),
                     ],
                   ),
                 ],
