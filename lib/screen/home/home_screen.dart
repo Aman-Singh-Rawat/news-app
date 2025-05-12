@@ -220,29 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          TextFormField(
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 13,
-              letterSpacing: 0.5,
-              fontWeight: FontWeight.bold,
-            ),
-            decoration: InputDecoration(
-              hintText: "Search",
-              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
-              suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey),
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 5,
-                horizontal: 20,
-              ),
-              fillColor: Colors.grey.shade100,
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
+          searchView(),
 
           sectionHeader(
             headerText: "Featured",

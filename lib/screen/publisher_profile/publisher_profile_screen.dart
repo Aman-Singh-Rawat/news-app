@@ -48,9 +48,9 @@ class PublisherProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: 30,
+                    radius: 40,
                     backgroundImage: NetworkImage(
-                      "https://media.istockphoto.com/id/672627304/photo/portrait-of-a-beautiful-young-girl.jpg?s=612x612&w=0&k=20&c=RyqulB7T0vh30kLQeLk0efJTUhlZc5KlgRvT9WIFiAg=",
+                      "https://cdn.pixabay.com/photo/2022/08/22/15/38/woman-7403940_1280.jpg",
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -117,7 +117,7 @@ class PublisherProfileScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              GestureDetector(
+                              InkWell(
                                 onTap: () {
                                   _navigateToAnotherScreen(index, context);
                                 },

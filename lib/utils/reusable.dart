@@ -27,3 +27,29 @@ Widget appBarAction({
     ),
   );
 }
+
+Widget searchView() {
+  return TextFormField(
+    style: const TextStyle(
+      color: Colors.black,
+      fontSize: 13,
+      letterSpacing: 0.5,
+      fontWeight: FontWeight.bold,
+    ),
+    decoration: InputDecoration(
+      hintText: "Search",
+      hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+      suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 20,
+      ),
+      fillColor: const Color(0xFFf5f6fa),
+      filled: true,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide.none,
+      ),
+    ),
+  );
+}
