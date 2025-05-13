@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:news_app/main.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Widget imageErrorBuilderWidget(context, error, stackTrace, size) {
   return Container(
@@ -20,9 +25,12 @@ Widget appBarAction({
 }) {
   return IconButton(
     onPressed: onPressed,
-    icon: svgIcon == null ? Icon(icon) : SvgPicture.asset(svgIcon!, width: 20, height: 24,),
+    icon:
+    svgIcon == null
+        ? Icon(icon)
+        : SvgPicture.asset(svgIcon, width: 20, height: 24),
     style: ButtonStyle(
-      backgroundColor: WidgetStatePropertyAll(primaryColor.withAlpha(30),),
+      backgroundColor: WidgetStatePropertyAll(primaryColor.withAlpha(30)),
       shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -42,10 +50,7 @@ Widget searchView() {
       hintText: "Search",
       hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
       suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey),
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 5,
-        horizontal: 20,
-      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       fillColor: const Color(0xFFf5f6fa),
       filled: true,
       border: OutlineInputBorder(
@@ -53,5 +58,113 @@ Widget searchView() {
         borderSide: BorderSide.none,
       ),
     ),
+  );
+}
+
+
+// Gallery Permission
+Future<void> requestGalleryPermission(Function(bool) selectImage) async {
+  late PermissionStatus status;
+  if (Platform.isAndroid) {
+    final androidInfo = await DeviceInfoPlugin().androidInfo;
+    if (androidInfo.version.sdkInt >= 33) {
+      status = await Permission.photos.request();
+    } else {
+      status = await Permission.storage.request();
+    }
+  } else if(Platform.isIOS) {
+    status = await Permission.photos.request();
+  }
+
+  if (status.isGranted) {
+    selectImage(false);
+  } else if (status.isDenied) {
+    Fluttertoast.showToast(
+      msg: "Permission is Denied",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black87,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  } else if (status.isPermanentlyDenied) {
+    openAppSettings();
+  }
+}
+
+// Camera Permission Request
+Future<void> requestCameraPermission(Function(bool) selectImage) async {
+  final status = await Permission.camera.request();
+  if (status == PermissionStatus.granted) {
+    selectImage(true);
+  } else if (status == PermissionStatus.denied) {
+    Fluttertoast.showToast(
+      msg: "Permission is Denied",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black87,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  } else if (status == PermissionStatus.permanentlyDenied) {
+    openAppSettings();
+  }
+}
+
+void openSelectingImageType({
+  required BuildContext context,
+  required Function(bool) selectImage
+}) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        actions: [
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width - 20,
+            child: Column(
+              children: [
+                Divider(color: Colors.grey.shade100),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        requestCameraPermission(selectImage);
+                      },
+                      label: Text(
+                        "Camera",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      icon: Icon(Icons.camera),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        requestGalleryPermission(selectImage);
+                      },
+                      label: Text(
+                        "Gallery",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      icon: Icon(Icons.account_circle_rounded),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+        title: Text(
+          "Choose Image",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      );
+    },
   );
 }

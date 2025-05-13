@@ -128,36 +128,64 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
       builder:
           (context) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
+            child: Wrap(
               children: [
-                Container(
-                  width: 50,
-                  height: 3.5,
-                  margin: const EdgeInsets.only(top: 6, bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(12),
+                Center(
+                  child: Container(
+                    width: 50,
+                    height: 3.5,
+                    margin: const EdgeInsets.only(top: 6, bottom: 30),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 24),
                 userCreatedNewsWidget(onSavedClick: () {}, isSaved: true),
-                const SizedBox(height: 20),
-                Text(
-                  "Remove from your bookmark?",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Center(
+                    child: Text(
+                      "Remove from your bookmark?",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
                 ),
-                Spacer(),
                 Row(
                   children: [
                     Flexible(
-                      child: customButton(
-                        color: Colors.white,
-                        buttonName: "Cancel",
-                        onClick: () {},
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 0,
+                          vertical: 25,
+                        ),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(30),
+                          onTap: () {},
+                          child: Container(
+                            height: 50,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: primaryColor, width: 2, ),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10),

@@ -11,6 +11,8 @@ import 'package:news_app/widgets/CustomButton.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../utils/reusable.dart';
+
 class FillProfile extends StatefulWidget {
   const FillProfile({super.key});
 
@@ -30,55 +32,6 @@ class _FillProfileState extends State<FillProfile> {
   bool _isAllTextFill = false;
 
   late final List<Map<String, dynamic>> _fillProfileEditTextMap;
-
-  // Camera Permission Request
-  Future<void> requestCameraPermission() async {
-    final status = await Permission.camera.request();
-    if (status == PermissionStatus.granted) {
-      _selectImage(true);
-    } else if (status == PermissionStatus.denied) {
-      Fluttertoast.showToast(
-        msg: "Permission is Denied",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black87,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    } else if (status == PermissionStatus.permanentlyDenied) {
-      openAppSettings();
-    }
-  }
-
-  // Gallery Permission
-  Future<void> requestGalleryPermission() async {
-    late PermissionStatus status;
-    if (Platform.isAndroid) {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
-      if (androidInfo.version.sdkInt >= 33) {
-        status = await Permission.photos.request();
-      } else {
-        status = await Permission.storage.request();
-      }
-    } else if(Platform.isIOS) {
-      status = await Permission.photos.request();
-    }
-
-    if (status.isGranted) {
-      _selectImage(false);
-    } else if (status.isDenied) {
-      Fluttertoast.showToast(
-        msg: "Permission is Denied",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black87,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    } else if (status.isPermanentlyDenied) {
-      openAppSettings();
-    }
-  }
 
   void _showSuccessDialog() {
     if (_isAllTextFill) {
@@ -172,57 +125,6 @@ class _FillProfileState extends State<FillProfile> {
     super.dispose();
   }
 
-  void _openSelectingImageType() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          actions: [
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width - 20,
-              child: Column(
-                children: [
-                  Divider(color: Colors.grey.shade100),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton.icon(
-                        onPressed: requestCameraPermission,
-                        label: Text(
-                          "Camera",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        icon: Icon(Icons.camera),
-                      ),
-                      TextButton.icon(
-                        onPressed: requestGalleryPermission,
-                        label: Text(
-                          "Gallery",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        icon: Icon(Icons.account_circle_rounded),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-          title: Text(
-            "Choose Image",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        );
-      },
-    );
-  }
-
   Future _selectImage(bool isCamera) async {
     final pickedFile = await picker.pickImage(
       source: isCamera ? ImageSource.camera : ImageSource.gallery,
@@ -268,7 +170,9 @@ class _FillProfileState extends State<FillProfile> {
                         right: 0,
                         bottom: 5,
                         child: InkWell(
-                          onTap: _openSelectingImageType,
+                          onTap: () {
+                            openSelectingImageType(context: context, selectImage: _selectImage);
+                          },
                           borderRadius: BorderRadius.circular(30),
                           child: Container(
                             padding: const EdgeInsets.all(3),
