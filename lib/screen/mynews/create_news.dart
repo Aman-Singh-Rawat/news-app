@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/utils/reusable.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
@@ -73,13 +74,13 @@ class _CreateNewsState extends State<CreateNews> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(CupertinoIcons.add, color: primaryColor),
-                                const SizedBox(height: 10),
+                                Icon(CupertinoIcons.add, color: primaryColor, size: 30,),
+                                const SizedBox(height: 3,),
                                 Text(
                                   "Add Cover Photos",
                                   style: TextStyle(
-                                    color: Colors.black54,
-                                    fontWeight: FontWeight.w500,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ],
@@ -102,30 +103,47 @@ class _CreateNewsState extends State<CreateNews> {
                       Positioned(
                         right: 0,
                         bottom: 0,
-                        child: Container(
-                          width: 55,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
+                        child: InkWell(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          onTap: () {
+                            openSelectingImageTypeDialog(
+                              selectImage: _selectImage,
+                              context: context,
+                            );
+                          },
+                          child: Container(
+                            width: 55,
+                            height: 55,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                              size: 30,
                             ),
                           ),
-                          child: Icon(Icons.edit, color: Colors.white,),
                         ),
                       ),
                     ],
                   ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               Divider(),
               const SizedBox(height: 25),
               Text(
                 "News Details",
                 style: TextStyle(
                   color: Colors.black,
+                  fontFamily: GoogleFonts.roboto().fontFamily,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 20,
                 ),
               ),
               const SizedBox(height: 20),

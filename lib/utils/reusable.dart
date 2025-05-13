@@ -28,9 +28,9 @@ Widget appBarAction({
   return IconButton(
     onPressed: onPressed,
     icon:
-    svgIcon == null
-        ? Icon(icon)
-        : SvgPicture.asset(svgIcon, width: 20, height: 24),
+        svgIcon == null
+            ? Icon(icon)
+            : SvgPicture.asset(svgIcon, width: 20, height: 24),
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(primaryColor.withAlpha(30)),
       shape: WidgetStatePropertyAll(
@@ -63,7 +63,6 @@ Widget searchView() {
   );
 }
 
-
 // Gallery Permission
 Future<void> requestGalleryPermission(Function(bool) selectImage) async {
   late PermissionStatus status;
@@ -74,7 +73,7 @@ Future<void> requestGalleryPermission(Function(bool) selectImage) async {
     } else {
       status = await Permission.storage.request();
     }
-  } else if(Platform.isIOS) {
+  } else if (Platform.isIOS) {
     status = await Permission.photos.request();
   }
 
@@ -113,10 +112,9 @@ Future<void> requestCameraPermission(Function(bool) selectImage) async {
   }
 }
 
-
 void openSelectingImageTypeDialog({
   required BuildContext context,
-  required Function(bool) selectImage
+  required Function(bool) selectImage,
 }) {
   showDialog(
     context: context,
@@ -138,11 +136,12 @@ void openSelectingImageTypeDialog({
                       label: Text(
                         "Camera",
                         style: TextStyle(
+                          fontSize: 15,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      icon: Icon(Icons.camera),
+                      icon: Icon(Icons.camera, size: 28),
                     ),
                     TextButton.icon(
                       onPressed: () {
@@ -151,11 +150,12 @@ void openSelectingImageTypeDialog({
                       label: Text(
                         "Gallery",
                         style: TextStyle(
+                          fontSize: 15,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      icon: Icon(Icons.photo),
+                      icon: Icon(Icons.photo, size: 28),
                     ),
                   ],
                 ),
