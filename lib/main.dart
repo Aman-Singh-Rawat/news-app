@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/screen/bookmark/bookmark_screen.dart';
-import 'package:news_app/screen/home/home_screen.dart';
-import 'package:news_app/screen/main/main_screen.dart';
-import 'package:news_app/screen/profile/fill_profile.dart';
-import 'package:news_app/screen/publisher_profile/publisher_profile_screen.dart';
+import 'package:news_app/screen/mynews/create_news.dart';
+import 'package:news_app/utils/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +14,6 @@ void main() async {
   runApp(const NewsApp());
 }
 
-const primaryColor = Color(0XFFFF7A77);
 
 class NewsApp extends StatelessWidget {
   const NewsApp({super.key});
@@ -47,7 +43,7 @@ class NewsApp extends StatelessWidget {
         textTheme: GoogleFonts.merriweatherTextTheme(),
         colorScheme: ColorScheme.light(primary: primaryColor),
       ),
-      home: FillProfile(),
+      home: CreateNews(),
     );
   }
 }

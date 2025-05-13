@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../main.dart';
 import '../utils/reusable.dart';
 
 class NetworkNewsWidget extends StatefulWidget {

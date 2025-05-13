@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import '../../utils/colors.dart';
 import '../bookmark/bookmark_screen.dart';
 import '../home/home_screen.dart';
 import '../mynews/my_news.dart';

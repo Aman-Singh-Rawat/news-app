@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../main.dart';
+import '../utils/colors.dart';
 import '../utils/reusable.dart';
 
 Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSavedClick}) {

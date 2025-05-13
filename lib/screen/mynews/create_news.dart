@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/main.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:news_app/utils/reusable.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
-import 'package:news_app/widgets/section_header.dart';
+
+import '../../utils/colors.dart';
 
 class CreateNews extends StatefulWidget {
   const CreateNews({super.key});
@@ -13,6 +17,24 @@ class CreateNews extends StatefulWidget {
 }
 
 class _CreateNewsState extends State<CreateNews> {
+  File? _image;
+  final picker = ImagePicker();
+
+  Future _selectImage(bool isCamera) async {
+    final pickedFile = await picker.pickImage(
+      source: isCamera ? ImageSource.camera : ImageSource.gallery,
+    );
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      }
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,39 +46,77 @@ class _CreateNewsState extends State<CreateNews> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              AspectRatio(
-                aspectRatio: 16 / 8,
-                child: DottedBorder(
-                  color: const Color(0xFFc7c7c9),
-                  radius: Radius.circular(20),
-                  strokeCap: StrokeCap.round,
-                  dashPattern: [10, 10],
-                  borderType: BorderType.RRect,
-                  strokeWidth: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFf5f6fa),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(CupertinoIcons.add, color: primaryColor),
-                          const SizedBox(height: 10),
-                          Text(
-                            "Add Cover Photos",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w500,
+              _image == null
+                  ? InkWell(
+                    onTap: () {
+                      openSelectingImageTypeDialog(
+                        context: context,
+                        selectImage: _selectImage,
+                      );
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    child: AspectRatio(
+                      aspectRatio: 16 / 8,
+                      child: DottedBorder(
+                        color: const Color(0xFFc7c7c9),
+                        radius: Radius.circular(20),
+                        strokeCap: StrokeCap.round,
+                        dashPattern: [10, 10],
+                        borderType: BorderType.RRect,
+                        strokeWidth: 2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFf5f6fa),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(CupertinoIcons.add, color: primaryColor),
+                                const SizedBox(height: 10),
+                                Text(
+                                  "Add Cover Photos",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
+                  )
+                  : Stack(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 16 / 10,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          clipBehavior: Clip.hardEdge,
+                          child: Image.file(_image!, fit: BoxFit.cover),
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: Container(
+                          width: 55,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                          ),
+                          child: Icon(Icons.edit, color: Colors.white,),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
               const SizedBox(height: 20),
               Divider(),
               const SizedBox(height: 25),
@@ -118,7 +178,10 @@ class _CreateNewsState extends State<CreateNews> {
                     horizontal: 20,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade200, width: 2),
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade200,
+                      width: 2,
+                    ),
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),

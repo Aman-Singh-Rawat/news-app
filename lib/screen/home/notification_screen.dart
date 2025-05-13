@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart'
-    show BuildContext, CupertinoIcons, Placeholder, Widget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../main.dart';
+import '../../utils/colors.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -13,7 +11,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  bool _isNotificationEmpty = false;
+  final bool _isNotificationEmpty = false;
   final _notificationMap = [
     {
       "date": "Today, December 25 2022",

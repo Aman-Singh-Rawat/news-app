@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../main.dart';
+import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 
 class SearchScreen extends StatefulWidget {

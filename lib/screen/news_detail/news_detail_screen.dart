@@ -11,6 +11,7 @@ import 'package:news_app/widgets/user_created_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../main.dart';
+import '../../utils/colors.dart';
 import '../../utils/reusable.dart';
 
 class NewsDetailScreen extends StatelessWidget {

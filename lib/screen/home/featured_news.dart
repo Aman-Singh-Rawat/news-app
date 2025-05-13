@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:http/http.dart' as http;
-import '../../main.dart';
+import '../../utils/colors.dart';
 import '../../utils/reusable.dart';
 
 class FeaturedNews extends StatelessWidget {

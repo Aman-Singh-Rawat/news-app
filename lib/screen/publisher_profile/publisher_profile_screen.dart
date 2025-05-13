@@ -5,6 +5,8 @@ import 'package:news_app/main.dart';
 import 'package:news_app/screen/publisher_profile/follow_screen.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 
+import '../../utils/colors.dart';
+
 class PublisherProfileScreen extends StatelessWidget {
   PublisherProfileScreen({super.key});
 

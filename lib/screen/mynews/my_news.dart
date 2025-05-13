@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_app/screen/mynews/create_news.dart';
 import 'package:news_app/utils/reusable.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 
-import '../../main.dart';
+import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 
 class MyNews extends StatefulWidget {

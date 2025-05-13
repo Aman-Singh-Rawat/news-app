@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import '../../utils/colors.dart';
 import '../../utils/reusable.dart';
 
 class FollowScreen extends StatefulWidget {

@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/screen/home/featured_news.dart';
 import 'package:news_app/screen/home/notification_screen.dart';
 import 'package:news_app/screen/news_detail/news_detail_screen.dart';
@@ -14,8 +13,8 @@ import 'package:news_app/utils/constant.dart';
 import 'package:news_app/widgets/network_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:http/http.dart' as http;
+import '../../utils/colors.dart';
 import '../../utils/reusable.dart';
-import '../../widgets/user_created_news_widget.dart';
 import '../../widgets/section_header.dart';
 
 class HomeScreen extends StatefulWidget {

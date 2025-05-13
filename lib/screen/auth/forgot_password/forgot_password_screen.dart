@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/widgets/CustomButton.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
 

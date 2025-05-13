@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/utils/colors.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 

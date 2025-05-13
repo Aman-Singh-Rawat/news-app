@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
 
+import '../utils/colors.dart';
+
 Widget sectionHeader({required String headerText, required VoidCallback onClick}) {
   return Column(
     children: [

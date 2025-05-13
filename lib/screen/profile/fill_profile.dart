@@ -1,15 +1,10 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/utils/colors.dart';
 import 'package:news_app/widgets/CustomButton.dart';
 import 'package:news_app/widgets/edit_text_with_title.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../utils/reusable.dart';
 
@@ -171,7 +166,7 @@ class _FillProfileState extends State<FillProfile> {
                         bottom: 5,
                         child: InkWell(
                           onTap: () {
-                            openSelectingImageType(context: context, selectImage: _selectImage);
+                            openSelectingImageTypeDialog(context: context, selectImage: _selectImage);
                           },
                           borderRadius: BorderRadius.circular(30),
                           child: Container(

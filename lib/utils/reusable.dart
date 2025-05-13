@@ -8,6 +8,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:news_app/main.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'colors.dart';
+
 Widget imageErrorBuilderWidget(context, error, stackTrace, size) {
   return Container(
     color: Colors.grey,
@@ -111,7 +113,8 @@ Future<void> requestCameraPermission(Function(bool) selectImage) async {
   }
 }
 
-void openSelectingImageType({
+
+void openSelectingImageTypeDialog({
   required BuildContext context,
   required Function(bool) selectImage
 }) {
@@ -152,7 +155,7 @@ void openSelectingImageType({
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      icon: Icon(Icons.account_circle_rounded),
+                      icon: Icon(Icons.photo),
                     ),
                   ],
                 ),

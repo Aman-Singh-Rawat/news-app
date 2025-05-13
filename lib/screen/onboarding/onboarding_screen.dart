@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/main.dart';
 
+import '../../utils/colors.dart';
 import '../../widgets/CustomButton.dart';
 
 class OnboardingScreen extends StatefulWidget {

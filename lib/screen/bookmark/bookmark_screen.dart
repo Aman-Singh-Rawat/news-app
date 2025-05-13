@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/utils/reusable.dart';
 import 'package:news_app/widgets/CustomButton.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 
+import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 
 class BookmarkScreen extends StatefulWidget {
@@ -16,7 +15,7 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
-  bool _isBookmarkEmpty = false;
+  final bool _isBookmarkEmpty = false;
 
   String _selectedCategoryName = "Trending";
 
