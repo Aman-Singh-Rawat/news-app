@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/main.dart';
 import 'package:news_app/screen/publisher_profile/follow_screen.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 
@@ -38,7 +37,7 @@ class PublisherProfileScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.share, color: primaryColor),
+              icon: const Icon(Icons.share, color: primaryColor),
             ),
           ],
         ),
@@ -49,7 +48,7 @@ class PublisherProfileScreen extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(
                       "https://cdn.pixabay.com/photo/2022/08/22/15/38/woman-7403940_1280.jpg",
@@ -78,17 +77,17 @@ class PublisherProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   TextButton.icon(
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(primaryColor),
                     ),
                     onPressed: () {},
-                    label: Text(
+                    label: const Text(
                       "Follow",
                       style: TextStyle(color: Colors.white),
                     ),
-                    icon: Icon(
+                    icon: const Icon(
                       CupertinoIcons.person_add_solid,
                       color: Colors.white,
                     ),
@@ -150,7 +149,7 @@ class PublisherProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              if (!isLast) VerticalDivider(),
+                              if (!isLast) const VerticalDivider(),
                             ],
                           ),
                         );
@@ -158,23 +157,23 @@ class PublisherProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-              Divider(),
+              const Divider(),
 
               TabBar(
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
                 dividerHeight: 3.5,
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(color: primaryColor, width: 3.5),
+                  borderSide: const BorderSide(color: primaryColor, width: 3.5),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 dividerColor: Colors.grey.shade200,
                 indicatorSize: TabBarIndicatorSize.tab,
-                overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                tabs: [Tab(text: "Top News"), Tab(text: "Recent")],
+                overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+                tabs: const [Tab(text: "Top News"), Tab(text: "Recent")],
               ),
               Expanded(
                 child: TabBarView(
@@ -190,7 +189,7 @@ class PublisherProfileScreen extends StatelessWidget {
                                 }),
                       ),
                     ),
-                    Text("data 2"),
+                    const Text("data 2"),
                   ],
                 ),
               ),

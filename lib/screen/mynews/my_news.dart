@@ -25,7 +25,7 @@ class _MyNewsState extends State<MyNews> {
           padding: const EdgeInsets.only(left: 20, top: 2),
           child: Image.asset("assets/images/img_logo_icon.png"),
         ),
-        title: Text(
+        title: const Text(
           "My News",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
@@ -74,11 +74,11 @@ class _MyNewsState extends State<MyNews> {
         elevation: 10,
 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        child: Icon(CupertinoIcons.add, size: 30),
+        child: const Icon(CupertinoIcons.add, size: 30),
         onPressed: () {
           Navigator.of(
             context,
-          ).push(MaterialPageRoute(builder: (context) => CreateNews()));
+          ).push(MaterialPageRoute(builder: (context) => const CreateNews()));
         },
       ),
     );

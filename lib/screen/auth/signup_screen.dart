@@ -86,7 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Center(
                   child: Text(
                     _isSignUp ? "Create an Account" : "Let's Sign You In",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 26,
                       fontWeight: FontWeight.w900,
@@ -119,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       value: _isRemember,
                       onChanged: _onRememberMeChanged,
                     ),
-                    Text(
+                    const Text(
                       "Remember me",
                       style: TextStyle(
                         color: Colors.black,
@@ -137,8 +137,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   onClick: _onSignUpPressed,
                 ),
                 _isSignUp
-                    ? SizedBox.shrink()
-                    : Center(
+                    ? const SizedBox.shrink()
+                    : const Center(
                       child: InkWell(
                         child: Text(
                           "Forgot the password?",
@@ -151,7 +151,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
 
                 SizedBox(height: _isSignUp ? 10 : 25),
-                Center(
+                const Center(
                   child: Text(
                     "or continue with",
                     style: TextStyle(
@@ -161,7 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Row(
+                const Row(
                   children: [
                     Expanded(
                       child: SocialMediaButton(
@@ -169,7 +169,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         buttonIcon: "assets/images/ic_facebook.svg",
                       ),
                     ),
-                    const SizedBox(width: 20),
+                    SizedBox(width: 20),
                     Expanded(
                       child: SocialMediaButton(
                         buttonName: "Google",
@@ -186,7 +186,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       _isSignUp
                           ? "Already have an account?"
                           : "Don't have an account?",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w500,
                       ),
@@ -196,7 +196,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onTap: _onScreenChange,
                       child: Text(
                         _isSignUp ? "Sign in" : "Sign up",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.w900,
                         ),

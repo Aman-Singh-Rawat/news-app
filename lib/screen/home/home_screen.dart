@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final apiKey = dotenv.env['API_KEY'] ?? '';
     debugPrint('API Key being used: $apiKey');
 
-    final baseUrl = 'https://newsapi.org/v2/';
+    const baseUrl = 'https://newsapi.org/v2/';
     final params = {
       'Trending': 'top-headlines?country=us',
       'Latest': 'everything?q=india&sortBy=popularity&language=en',
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.only(left: 20, top: 2),
                   child: Image.asset("assets/images/img_logo_icon.png"),
                 ),
-                title: Text(
+                title: const Text(
                   "Newsly",
                   style: TextStyle(
                     color: Colors.black,
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NotificationScreen(),
+                          builder: (context) => const NotificationScreen(),
                         ),
                       );
                     },
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
           future: _newsFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
 
             if (snapshot.hasError) {
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
 
             if (!snapshot.hasData || snapshot.data!.articles.isEmpty) {
-              return Text("No Articles available");
+              return const Text("No Articles available");
             }
             return Column(
               children: snapshot.data!.articles
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onClick: () {
               Navigator.of(
                 context,
-              ).push(MaterialPageRoute(builder: (context) => FeaturedNews()));
+              ).push(MaterialPageRoute(builder: (context) => const FeaturedNews()));
             },
           ),
           Stack(
@@ -247,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                     placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
-                    fadeInDuration: Duration(milliseconds: 400),
+                    fadeInDuration: const Duration(milliseconds: 400),
                     image: NetworkImage(featuredArticle?.urlToImage ?? ""),
                   ),
                 ),
@@ -262,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [
                           Color.fromARGB(10, 0, 0, 0),
                           Color.fromARGB(20, 0, 0, 0),
@@ -290,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         maxLines: 1,
                         featuredArticle?.title ?? "",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -316,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Read Now",
                           style: TextStyle(
                             color: Colors.white,

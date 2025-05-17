@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
 import '../utils/colors.dart';
 
 class EditTextWithTitle extends StatefulWidget {
@@ -13,7 +12,7 @@ class EditTextWithTitle extends StatefulWidget {
     required this.controller,
     this.isRequired = true,
     this.obscureText = false,
-    this.suffixIcon,
+    this.suffixIcon, this.onFieldSubmitted,
   });
 
   final IconData? suffixIcon;
@@ -23,6 +22,7 @@ class EditTextWithTitle extends StatefulWidget {
   final TextEditingController controller;
   final bool isRequired;
   final bool obscureText;
+  final Function(String value)? onFieldSubmitted;
 
   @override
   State<EditTextWithTitle> createState() => _EditTextWithTitleState();
@@ -37,7 +37,7 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
     super.initState();
 
     _outlineInputBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: primaryColor, width: 0.5),
+      borderSide: const BorderSide(color: primaryColor, width: 0.5),
       borderRadius: BorderRadius.circular(30),
     );
     _isPasswordVisible = widget.obscureText;
@@ -46,18 +46,18 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
   Widget get _suffixIcon {
     return widget.obscureText
         ? IconButton(
-      onPressed: () {
-        setState(() {
-          _isPasswordVisible = !_isPasswordVisible;
-        });
-      },
-      icon: Icon(
-        _isPasswordVisible
-            ? CupertinoIcons.eye_fill
-            : CupertinoIcons.eye_slash_fill,
-        color: Colors.black54,
-      ),
-    )
+          onPressed: () {
+            setState(() {
+              _isPasswordVisible = !_isPasswordVisible;
+            });
+          },
+          icon: Icon(
+            _isPasswordVisible
+                ? CupertinoIcons.eye_fill
+                : CupertinoIcons.eye_slash_fill,
+            color: Colors.black54,
+          ),
+        )
         : Icon(widget.suffixIcon, color: Colors.grey);
   }
 
@@ -89,7 +89,7 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
               ),
             ),
             if (widget.isRequired)
-              TextSpan(
+              const TextSpan(
                 text: "*",
                 style: TextStyle(
                   color: primaryColor,
@@ -104,6 +104,7 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
 
   Widget _buildTextFormField() {
     return TextFormField(
+      onFieldSubmitted: widget.onFieldSubmitted,
       controller: widget.controller,
       keyboardType: widget.inputType,
       obscureText: _isPasswordVisible,
@@ -124,7 +125,7 @@ class _EditTextWithTitleState extends State<EditTextWithTitle> {
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
         focusedBorder: _outlineInputBorder.copyWith(
-          borderSide: BorderSide(color: primaryColor, width: 2),
+          borderSide: const BorderSide(color: primaryColor, width: 2),
         ),
         enabledBorder: _outlineInputBorder.copyWith(
           borderSide: BorderSide(

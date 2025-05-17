@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/main.dart';
 
 import '../../utils/colors.dart';
 import '../../widgets/CustomButton.dart';
@@ -96,7 +95,7 @@ class _OnboardingScreen extends State<OnboardingScreen> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Spacer(),
+                            const Spacer(),
                             RichText(
                               maxLines: 2,
                               softWrap: true,
@@ -105,7 +104,7 @@ class _OnboardingScreen extends State<OnboardingScreen> {
                                   TextSpan(
                                     text:
                                     item["noColorText"]!,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 34,
                                       fontWeight: FontWeight.w400,
                                       color: Colors.white,
@@ -165,7 +164,7 @@ class _OnboardingScreen extends State<OnboardingScreen> {
                 const SizedBox(height: 20),
                 InkWell(
                   onTap: _navigateToAccountType,
-                  child: Text(
+                  child: const Text(
                     "Skip",
                     style: TextStyle(
                       letterSpacing: 1,

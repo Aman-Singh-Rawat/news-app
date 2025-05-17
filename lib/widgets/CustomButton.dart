@@ -21,7 +21,7 @@ Widget customButton({
         child: Center(
           child: Text(
             buttonName,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: Colors.white,
               fontWeight: FontWeight.bold,

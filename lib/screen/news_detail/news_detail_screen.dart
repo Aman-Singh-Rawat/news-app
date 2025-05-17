@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/data/models/NetworkNews.dart';
-import 'package:news_app/screen/profile/fill_profile.dart';
-import 'package:news_app/screen/profile/my_profile.dart';
 import 'package:news_app/screen/publisher_profile/publisher_profile_screen.dart';
 import 'package:news_app/widgets/section_header.dart';
 import 'package:news_app/widgets/user_created_news_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../../main.dart';
 import '../../utils/colors.dart';
 import '../../utils/reusable.dart';
 
@@ -67,7 +63,7 @@ class NewsDetailScreen extends StatelessWidget {
                         ),
                     placeholder: MemoryImage(kTransparentImage),
                     fit: BoxFit.cover,
-                    fadeInDuration: Duration(milliseconds: 400),
+                    fadeInDuration: const Duration(milliseconds: 400),
                     image: NetworkImage(article.urlToImage!),
                   ),
                 ),
@@ -97,7 +93,7 @@ class NewsDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: primaryColor, width: 1.5),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Politics",
                       style: TextStyle(
                         color: primaryColor,
@@ -107,17 +103,17 @@ class NewsDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  Icon(Icons.remove_red_eye, color: primaryColor),
+                  const Icon(Icons.remove_red_eye, color: primaryColor),
                   const SizedBox(width: 3),
-                  Text("0", style: TextStyle(fontSize: 17)),
+                  const Text("0", style: TextStyle(fontSize: 17)),
                   const SizedBox(width: 20),
-                  Icon(Icons.thumb_up_alt, color: primaryColor),
+                  const Icon(Icons.thumb_up_alt, color: primaryColor),
                   const SizedBox(width: 3),
-                  Text("0", style: TextStyle(fontSize: 17)),
+                  const Text("0", style: TextStyle(fontSize: 17)),
                   const SizedBox(width: 20),
-                  Icon(Icons.textsms_rounded, color: primaryColor),
+                  const Icon(Icons.textsms_rounded, color: primaryColor),
                   const SizedBox(width: 3),
-                  Text("0", style: TextStyle(fontSize: 17)),
+                  const Text("0", style: TextStyle(fontSize: 17)),
                 ],
               ),
 
@@ -149,7 +145,7 @@ class NewsDetailScreen extends StatelessWidget {
                                 Text(
                                   article.source?.name ?? "Unknown",
                                   maxLines: 1,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     overflow: TextOverflow.ellipsis,
                                     color: primaryColor,
                                     fontSize: 14,
@@ -157,7 +153,7 @@ class NewsDetailScreen extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(
+                                const Text(
                                   "5 days ago",
                                   style: TextStyle(fontSize: 11),
                                 ),
@@ -170,7 +166,7 @@ class NewsDetailScreen extends StatelessWidget {
                   ),
                   TextButton.icon(
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(primaryColor),
+                      backgroundColor: const WidgetStatePropertyAll(primaryColor),
                       shape: WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -178,7 +174,7 @@ class NewsDetailScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    label: Text(
+                    label: const Text(
                       "Follow",
                       style: TextStyle(
                         color: Colors.white,
@@ -186,7 +182,7 @@ class NewsDetailScreen extends StatelessWidget {
                         fontSize: 12,
                       ),
                     ),
-                    icon: Icon(Icons.add, color: Colors.white),
+                    icon: const Icon(Icons.add, color: Colors.white),
                   ),
                 ],
               ),
@@ -222,7 +218,7 @@ class NewsDetailScreen extends StatelessWidget {
                             ),
                             child: Text(
                               e,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: primaryColor,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
@@ -244,12 +240,12 @@ class NewsDetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
 
                   TextButton.icon(
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                       padding: WidgetStatePropertyAll(
-                        const EdgeInsets.only(right: 2),
+                        EdgeInsets.only(right: 2),
                       ),
                     ),
                     label: Text(
@@ -261,11 +257,11 @@ class NewsDetailScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    icon: Icon(Icons.thumb_up_off_alt, color: primaryColor),
+                    icon: const Icon(Icons.thumb_up_off_alt, color: primaryColor),
                   ),
                   TextButton.icon(
-                    style: ButtonStyle(
-                      padding: WidgetStatePropertyAll(const EdgeInsets.all(0)),
+                    style: const ButtonStyle(
+                      padding: WidgetStatePropertyAll(EdgeInsets.all(0)),
                     ),
                     label: Text(
                       "100",
@@ -276,7 +272,7 @@ class NewsDetailScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.thumb_down_off_alt_rounded,
                       color: primaryColor,
                     ),
@@ -303,14 +299,14 @@ class NewsDetailScreen extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 5),
-                    Divider(),
+                    const Divider(),
                     const SizedBox(height: 10),
                     addAComment,
                   ],
                 ),
               ),
               const SizedBox(height: 20),
-              Divider(),
+              const Divider(),
               sectionHeader(headerText: "Related", onClick: () {}),
               userCreatedNewsWidget(onSavedClick: () {}),
               userCreatedNewsWidget(onSavedClick: () {}),
@@ -345,7 +341,7 @@ class NewsDetailScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         IconButton(
           onPressed: onIconClick,
           icon:
@@ -379,10 +375,10 @@ class NewsDetailScreen extends StatelessWidget {
               ),
               getCommentsHeader(
                 onIconClick: () {},
-                icon: Icon(Icons.clear, color: primaryColor),
+                icon: const Icon(Icons.clear, color: primaryColor),
               ),
               const SizedBox(height: 10),
-              Divider(),
+              const Divider(),
               const SizedBox(height: 20),
               addAComment,
               const SizedBox(height: 20),
@@ -392,7 +388,7 @@ class NewsDetailScreen extends StatelessWidget {
                   itemCount: 3,
                   itemBuilder:
                       (BuildContext context, int index) => Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.only(top: 5, bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
@@ -401,13 +397,13 @@ class NewsDetailScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             ListTile(
-                              leading: CircleAvatar(
+                              leading: const CircleAvatar(
                                 radius: 18,
                                 backgroundImage: NetworkImage(
                                   "https://cdn.pixabay.com/photo/2016/09/26/10/26/cute-cartoon-characters-1695612_1280.png",
                                 ),
                               ),
-                              title: Text(
+                              title: const Text(
                                 "Jenny Wilson",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -415,7 +411,7 @@ class NewsDetailScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              subtitle: Text(
+                              subtitle: const Text(
                                 "3 days ago",
                                 style: TextStyle(
                                   fontSize: 10,
@@ -425,7 +421,7 @@ class NewsDetailScreen extends StatelessWidget {
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.more_vert,
                                   color: primaryColor,
                                 ),
@@ -437,19 +433,19 @@ class NewsDetailScreen extends StatelessWidget {
                               ),
                               child: Column(
                                 children: [
-                                  Divider(),
-                                  Text(
+                                  const Divider(),
+                                  const Text(
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quam nibh, interdum eget turpis id, vehicula ultrices mauris",
                                     style: TextStyle(fontSize: 11, height: 1.8),
                                   ),
                                   const SizedBox(height: 10),
-                                  Divider(),
+                                  const Divider(),
                                   Row(
                                     children: [
                                       TextButton.icon(
-                                        style: ButtonStyle(
+                                        style: const ButtonStyle(
                                           padding: WidgetStatePropertyAll(
-                                            const EdgeInsets.only(right: 2),
+                                            EdgeInsets.only(right: 2),
                                           ),
                                         ),
                                         label: Text(
@@ -463,15 +459,15 @@ class NewsDetailScreen extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {},
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.thumb_up_off_alt,
                                           color: primaryColor,
                                         ),
                                       ),
                                       TextButton.icon(
-                                        style: ButtonStyle(
+                                        style: const ButtonStyle(
                                           padding: WidgetStatePropertyAll(
-                                            const EdgeInsets.all(0),
+                                            EdgeInsets.all(0),
                                           ),
                                         ),
                                         label: Text(
@@ -485,7 +481,7 @@ class NewsDetailScreen extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {},
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.thumb_down_off_alt_rounded,
                                           color: primaryColor,
                                         ),
@@ -510,7 +506,7 @@ class NewsDetailScreen extends StatelessWidget {
   Widget get addAComment {
     return Row(
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           radius: 24,
           backgroundImage: NetworkImage(
             "https://cdn.pixabay.com/photo/2022/12/02/03/31/girl-7630188_1280.jpg",
@@ -534,7 +530,7 @@ class NewsDetailScreen extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(color: primaryColor, width: 2),
+                borderSide: const BorderSide(color: primaryColor, width: 2),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),

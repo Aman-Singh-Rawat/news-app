@@ -13,14 +13,14 @@ class _ForgotPassOtpState extends State<ForgotPassOtp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Forgot Password")),
+      appBar: AppBar(title: const Text("Forgot Password")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Code has been sent send to your email"),
-            SizedBox(height: 20),
+            const Text("Code has been sent send to your email"),
+            const SizedBox(height: 20),
             OtpPinField(
               onSubmit: (text) {},
               otpPinFieldDecoration: OtpPinFieldDecoration.custom,
@@ -32,7 +32,7 @@ class _ForgotPassOtpState extends State<ForgotPassOtp> {
                 activeFieldBorderColor: primaryColor,
                 fieldBorderRadius: 18,
                 fieldPadding: 14,
-                activeFieldBorderGradient: LinearGradient(colors: [
+                activeFieldBorderGradient: const LinearGradient(colors: [
                   lightRose,
                   primaryColor,
                 ]),

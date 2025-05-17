@@ -35,11 +35,11 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   final _bottomNavigationItem = [
-    HomeScreen(),
-    SearchScreen(),
-    BookmarkScreen(),
-    MyNews(),
-    MyProfile(),
+    const HomeScreen(),
+    const SearchScreen(),
+    const BookmarkScreen(),
+    const MyNews(),
+    const MyProfile(),
   ];
 
   @override
@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
       body: _bottomNavigationItem[_bottomNavigationPosition],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           ),

@@ -24,7 +24,7 @@ class NewsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: primaryColor),
           titleTextStyle: TextStyle(
             color: Colors.black,
@@ -37,14 +37,14 @@ class NewsApp extends StatelessWidget {
           thickness: 1.5
 
         ),
-        checkboxTheme: CheckboxThemeData(
+        checkboxTheme: const CheckboxThemeData(
           side: BorderSide(color: primaryColor, width: 2),
         ),
         primaryColor: primaryColor,
         textTheme: GoogleFonts.merriweatherTextTheme(),
-        colorScheme: ColorScheme.light(primary: primaryColor),
+        colorScheme: const ColorScheme.light(primary: primaryColor),
       ),
-      home: CreateNews(),
+      home: const CreateNews(),
     );
   }
 }

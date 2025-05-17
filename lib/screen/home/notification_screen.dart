@@ -61,11 +61,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 RichText(
                   text: TextSpan(
-                    style: TextStyle(overflow: TextOverflow.ellipsis),
+                    style: const TextStyle(overflow: TextOverflow.ellipsis),
                     children: [
                       TextSpan(
                         text: title.split(' ')[0],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       ),
                       TextSpan(
                         text: title.substring(title.indexOf(' '), title.length),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
@@ -88,7 +88,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 const SizedBox(height: 5),
                 Text(
                   map["time"],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 9,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -102,8 +102,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 style: TextButton.styleFrom(backgroundColor: primaryColor),
                 iconAlignment: IconAlignment.start,
                 onPressed: () {},
-                icon: Icon(Icons.add, color: Colors.white),
-                label: Center(
+                icon: const Icon(Icons.add, color: Colors.white),
+                label: const Center(
                   child: Text(
                     "Follow",
                     style: TextStyle(
@@ -136,9 +136,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
-        title: Text(
+        title: const Text(
           "Notifications",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
@@ -149,7 +149,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               borderRadius: BorderRadius.circular(12),
               color: primaryColor.withAlpha(30),
             ),
-            child: Icon(Icons.more_vert, color: primaryColor),
+            child: const Icon(Icons.more_vert, color: primaryColor),
           ),
           const SizedBox(width: 20),
         ],
@@ -168,7 +168,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       width: 150,
                     ),
                     const SizedBox(height: 10),
-                    Text(
+                    const Text(
                       "You have no notifications",
                       style: TextStyle(
                         color: primaryColor,

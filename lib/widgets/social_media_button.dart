@@ -15,8 +15,8 @@ class SocialMediaButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       style: ButtonStyle(
-        padding: WidgetStatePropertyAll(
-          const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        padding: const WidgetStatePropertyAll(
+          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         ),
         side: WidgetStatePropertyAll(
           BorderSide(color: Colors.grey.shade200, width: 0.5),
@@ -27,7 +27,7 @@ class SocialMediaButton extends StatelessWidget {
       ),
       label: Text(
         buttonName,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 14,

@@ -29,7 +29,7 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Forgot Password")),
+      appBar: AppBar(title: const Text("Forgot Password")),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -42,7 +42,7 @@ class _ForgotPasswordScreen extends State<ForgotPasswordScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
+              const Text(
                 "Select which contact details should we use to reset your password",
                 style: TextStyle(color: Colors.black, fontSize: 13),
               ),

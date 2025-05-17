@@ -36,9 +36,9 @@ class FeaturedNews extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
-        title: Text(
+        title: const Text(
           "Featured News",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
@@ -49,7 +49,7 @@ class FeaturedNews extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: primaryColor.withAlpha(30),
             ),
-            child: Icon(Icons.more_vert, color: primaryColor),
+            child: const Icon(Icons.more_vert, color: primaryColor),
           ),
           const SizedBox(width: 20),
         ],
@@ -59,15 +59,15 @@ class FeaturedNews extends StatelessWidget {
         builder: (context, snapshot) {
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Error loading news'));
+            return const Center(child: Text('Error loading news'));
           }
 
           if (!snapshot.hasData || snapshot.data!.articles.isEmpty) {
-            return Center(child: Text('No news available'));
+            return const Center(child: Text('No news available'));
           }
           final articleList = snapshot.data!.articles;
           return ListView.builder(
@@ -94,7 +94,7 @@ class FeaturedNews extends StatelessWidget {
                           ),
                           placeholder: MemoryImage(kTransparentImage),
                           fit: BoxFit.cover,
-                          fadeInDuration: Duration(milliseconds: 400),
+                          fadeInDuration: const Duration(milliseconds: 400),
                           image: NetworkImage(newsItem.urlToImage ?? ""),
                         ),
                       ),
@@ -109,7 +109,7 @@ class FeaturedNews extends StatelessWidget {
                           width: double.maxFinite,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [
                                 Color.fromARGB(10, 0, 0, 0),
                                 Color.fromARGB(20, 0, 0, 0),
@@ -137,7 +137,7 @@ class FeaturedNews extends StatelessWidget {
                             Text(
                               maxLines: 1,
                               newsItem.title ?? "",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -157,7 +157,7 @@ class FeaturedNews extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               ),
-                              child: Text(
+                              child: const Text(
                                 "Read Now",
                                 style: TextStyle(
                                   color: Colors.white,

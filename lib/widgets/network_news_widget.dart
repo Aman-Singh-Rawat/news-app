@@ -48,7 +48,7 @@ class _NetworkNewsWidgetState extends State<NetworkNewsWidget> {
                         child: Text(
                           widget.article.author ?? "error",
                           maxLines: 1,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             overflow: TextOverflow.ellipsis,
                             color: Colors.black54,
@@ -60,12 +60,12 @@ class _NetworkNewsWidgetState extends State<NetworkNewsWidget> {
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         width: 2,
                         height: 2,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.grey,
                         ),
                       ),
-                      Flexible(
+                      const Flexible(
                         child: Text(
                           "May 24 2025",
                           style: TextStyle(
@@ -90,7 +90,7 @@ class _NetworkNewsWidgetState extends State<NetworkNewsWidget> {
               width: 125,
               fit: BoxFit.cover,
               imageErrorBuilder: (context, error, stackTrace) => imageErrorBuilderWidget(context, error, stackTrace, 24,),
-              fadeInDuration: Duration(milliseconds: 400),
+              fadeInDuration: const Duration(milliseconds: 400),
               placeholder: MemoryImage(kTransparentImage),
               image: NetworkImage(
                 widget.article.urlToImage ?? "",
@@ -103,7 +103,7 @@ class _NetworkNewsWidgetState extends State<NetworkNewsWidget> {
               borderRadius: BorderRadius.circular(12),
               color: Colors.red.shade50,
             ),
-            child: Icon(Icons.warning, color: Colors.red, size: 30,)
+            child: const Icon(Icons.warning, color: Colors.red, size: 30,)
           ),
         ],
       ),

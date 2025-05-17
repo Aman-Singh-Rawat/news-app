@@ -39,7 +39,7 @@ class _FillProfileState extends State<FillProfile> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 10),
-                  Text(
+                  const Text(
                     "Great!\nYour account has been created successfully",
                     style: TextStyle(
                       color: primaryColor,
@@ -138,7 +138,7 @@ class _FillProfileState extends State<FillProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Fill Your Profile")),
+      appBar: AppBar(title: const Text("Fill Your Profile")),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
@@ -171,11 +171,11 @@ class _FillProfileState extends State<FillProfile> {
                           borderRadius: BorderRadius.circular(30),
                           child: Container(
                             padding: const EdgeInsets.all(3),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: primaryColor,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.edit, color: Colors.white),
+                            child: const Icon(Icons.edit, color: Colors.white),
                           ),
                         ),
                       ),

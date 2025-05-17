@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:news_app/main.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'colors.dart';
@@ -51,7 +50,7 @@ Widget searchView() {
     decoration: InputDecoration(
       hintText: "Search",
       hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
-      suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey),
+      suffixIcon: const Icon(CupertinoIcons.search, color: Colors.grey),
       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       fillColor: const Color(0xFFf5f6fa),
       filled: true,
@@ -133,7 +132,7 @@ void openSelectingImageTypeDialog({
                       onPressed: () {
                         requestCameraPermission(selectImage);
                       },
-                      label: Text(
+                      label: const Text(
                         "Camera",
                         style: TextStyle(
                           fontSize: 15,
@@ -141,13 +140,13 @@ void openSelectingImageTypeDialog({
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      icon: Icon(Icons.camera, size: 28),
+                      icon: const Icon(Icons.camera, size: 28),
                     ),
                     TextButton.icon(
                       onPressed: () {
                         requestGalleryPermission(selectImage);
                       },
-                      label: Text(
+                      label: const Text(
                         "Gallery",
                         style: TextStyle(
                           fontSize: 15,
@@ -155,7 +154,7 @@ void openSelectingImageTypeDialog({
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      icon: Icon(Icons.photo, size: 28),
+                      icon: const Icon(Icons.photo, size: 28),
                     ),
                   ],
                 ),

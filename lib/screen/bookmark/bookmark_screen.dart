@@ -27,7 +27,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
           padding: const EdgeInsets.only(left: 20, top: 2),
           child: Image.asset("assets/images/img_logo_icon.png"),
         ),
-        title: Text(
+        title: const Text(
           "My Bookmark",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
@@ -54,7 +54,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                     width: 200,
                     height: 200,
                   ),
-                  Text(
+                  const Text(
                     "You have no bookmarked news",
                     style: TextStyle(
                       color: primaryColor,
@@ -141,8 +141,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                   ),
                 ),
                 userCreatedNewsWidget(onSavedClick: () {}, isSaved: true),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Center(
                     child: Text(
                       "Remove from your bookmark?",
@@ -158,7 +158,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                   children: [
                     Flexible(
                       child: Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           horizontal: 0,
                           vertical: 25,
                         ),
@@ -173,7 +173,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                               border: Border.all(color: primaryColor, width: 2, ),
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 "Cancel",
                                 style: TextStyle(

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../main.dart';
 import '../../utils/colors.dart';
 import '../../utils/constant.dart';
 
@@ -36,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen>
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
       ),
       body: Column(
@@ -54,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen>
               decoration: InputDecoration(
                 hintText: "Search",
                 hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
-                suffixIcon: Icon(CupertinoIcons.search, color: Colors.grey),
+                suffixIcon: const Icon(CupertinoIcons.search, color: Colors.grey),
                 contentPadding: const EdgeInsets.symmetric(
                   vertical: 5,
                   horizontal: 20,
@@ -74,16 +73,16 @@ class _SearchScreenState extends State<SearchScreen>
               indicatorWeight: 5,
               dividerHeight: 2,
               dividerColor: Colors.grey.shade300,
-              labelStyle: TextStyle(
+              labelStyle: const TextStyle(
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
               indicatorSize: TabBarIndicatorSize.tab,
-              indicator: UnderlineTabIndicator(
+              indicator: const UnderlineTabIndicator(
                 borderSide: BorderSide(width: 3.5, color: primaryColor),
               ),
-              tabs: [
+              tabs: const [
                 Tab(text: "News"),
                 Tab(text: "People"),
                 Tab(text: "Hashtag"),
@@ -157,8 +156,8 @@ class _SearchScreenState extends State<SearchScreen>
                       ),
                     ],
                   ),
-                  Text("first 2"),
-                  Text("first 3"),
+                  const Text("first 2"),
+                  const Text("first 3"),
                 ],
               ),
             ),

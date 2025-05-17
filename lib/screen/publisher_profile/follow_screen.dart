@@ -36,13 +36,13 @@ class _FollowScreenState extends State<FollowScreen> {
                         borderSide: BorderSide(color: Colors.grey.shade200),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      leading: CircleAvatar(
+                      leading: const CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(
                           "https://cdn.pixabay.com/photo/2019/08/07/04/37/old-woman-4389774_1280.jpg",
                         ),
                       ),
-                      title: Text(
+                      title: const Text(
                         "Jenny Wilson",
                         maxLines: 1,
                         style: TextStyle(
@@ -52,7 +52,7 @@ class _FollowScreenState extends State<FollowScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      subtitle: Text(
+                      subtitle: const Text(
                         "3 days ago",
                         style: TextStyle(
                           fontSize: 10,
@@ -62,11 +62,11 @@ class _FollowScreenState extends State<FollowScreen> {
                       ),
                       trailing: TextButton.icon(
                         onPressed: () {},
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(primaryColor),
                         ),
-                        icon: Icon(Icons.add, color: Colors.white),
-                        label: Text(
+                        icon: const Icon(Icons.add, color: Colors.white),
+                        label: const Text(
                           "Follow",
                           style: TextStyle(
                             color: Colors.white,

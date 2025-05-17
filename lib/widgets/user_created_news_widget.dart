@@ -26,7 +26,7 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                 Expanded(
                   child: ClipRRect(
                     clipBehavior: Clip.hardEdge,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
                     ),
@@ -40,9 +40,9 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                                 12,
                               ),
                       fit: BoxFit.cover,
-                      fadeInDuration: Duration(milliseconds: 400),
+                      fadeInDuration: const Duration(milliseconds: 400),
                       placeholder: MemoryImage(kTransparentImage),
-                      image: NetworkImage(
+                      image: const NetworkImage(
                         "https://cdn.pixabay.com/photo/2025/03/16/14/12/cat-9473998_1280.jpg",
                       ),
                     ),
@@ -61,7 +61,7 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "The Fast Company Impact Council is an invitation-only membership community of leaders, experts, executives, and entrepreneurs who share their insights with our audience. Members pay annual dues for access to peer learning, thought leadership opportunities, events and more.",
                     maxLines: 2,
                     style: TextStyle(
@@ -74,14 +74,14 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 12,
                         backgroundImage: NetworkImage(
                           "https://static.vecteezy.com/system/resources/previews/026/829/465/non_2x/beautiful-girl-with-autumn-leaves-photo.jpg",
                         ),
                       ),
                       const SizedBox(width: 6),
-                      Text(
+                      const Text(
                         "BBC News",
                         style: TextStyle(
                           color: Colors.black,
@@ -99,7 +99,7 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: primaryColor, width: 1.5),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Technology",
                           style: TextStyle(
                             fontSize: 9,
@@ -114,13 +114,13 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                   //Likes, Comments, Save
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         CupertinoIcons.hand_thumbsup_fill,
                         size: 18,
                         color: primaryColor,
                       ),
                       const SizedBox(width: 2),
-                      Text(
+                      const Text(
                         "316K",
                         style: TextStyle(
                           color: Colors.black,
@@ -129,9 +129,9 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Icon(Icons.chat_outlined, size: 18, color: primaryColor),
+                      const Icon(Icons.chat_outlined, size: 18, color: primaryColor),
                       const SizedBox(width: 5),
-                      Text(
+                      const Text(
                         "110.5K",
                         style: TextStyle(
                           color: Colors.black,
@@ -139,7 +139,7 @@ Widget userCreatedNewsWidget({bool isSaved = false, required VoidCallback onSave
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       InkWell(
                         onTap: onSavedClick,
                         child: Icon(

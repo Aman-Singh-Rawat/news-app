@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/main.dart';
 
 import '../utils/colors.dart';
 
@@ -13,7 +11,7 @@ Widget sectionHeader({required String headerText, required VoidCallback onClick}
         children: [
           Text(
             headerText,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w600,
               fontSize: 18,
@@ -21,7 +19,7 @@ Widget sectionHeader({required String headerText, required VoidCallback onClick}
           ),
           InkWell(
             onTap: onClick,
-            child: Text(
+            child: const Text(
               "See all",
               style: TextStyle(
                 color: primaryColor,
